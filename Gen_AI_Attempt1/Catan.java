@@ -6,6 +6,7 @@ public class Catan {
     private int maxRounds;
 
     public Catan() {
+
         players = new Player[4];
         players[0] = new Player("Red");
         players[1] = new Player("Blue");
