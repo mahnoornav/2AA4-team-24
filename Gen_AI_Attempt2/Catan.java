@@ -1,4 +1,3 @@
-package org.catanGen;
 
 // Catan.java
 import java.util.*;
@@ -110,5 +109,10 @@ public class Catan {
 
     public List<Player> getPlayers() {
         return Collections.unmodifiableList(players);
+    }
+
+    public static void main(String[] args) {
+        Catan c = new Catan();
+        c.play();
     }
 }

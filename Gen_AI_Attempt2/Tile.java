@@ -1,4 +1,3 @@
-package org.catanGen;
 
 // Tile.java
 import java.util.ArrayList;

@@ -1,4 +1,3 @@
-package org.catanGen;
 
 // Board.java
 import java.util.*;

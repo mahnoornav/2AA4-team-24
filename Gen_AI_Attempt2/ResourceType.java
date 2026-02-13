@@ -1,4 +1,3 @@
-package org.catanGen;
 
 // ResourceType.java
 public enum ResourceType {

@@ -7,18 +7,21 @@ public class Player {
     private int victoryPoints;
     private List<ResourceType> resources;
 
+    // Constructor
     public Player(String userColor) {
         this.userColor = userColor;
-        this.victoryPoints = 0;
+        this.victoryPoints = 2;
         this.resources = new ArrayList<>();
     }
 
+    // Plays agent's turn based on roll
     public int turn (int roll) {
         int move = chooseMove();
         spend(move);
         return move;
     }
 
+    // Chooses agent's move based on resources it has
     private int chooseMove() {
         if (canBuildSettlement()) return 1;
         else if (canBuildCity()) return 2;
@@ -26,6 +29,7 @@ public class Player {
         else return 0; // Pass
     }
 
+    // Spends resource cards based on agent's move
     private void spend(int option) {
         switch (option) {
             case 1:
@@ -47,14 +51,17 @@ public class Player {
         }
     }
 
+    // Determines if resource available to build road
     private boolean canBuildRoad() {
         return resources.contains(ResourceType.BRICK) && resources.contains(ResourceType.LUMBER);
     }
 
+    // Determines if resource available to build settlement
     private boolean canBuildSettlement() {
         return resources.contains(ResourceType.BRICK) && resources.contains(ResourceType.LUMBER) && resources.contains(ResourceType.WOOL) && resources.contains(ResourceType.GRAIN);
     }
 
+    // Determines if resource available to build city
     private boolean canBuildCity() {
         int oreCount = 0;
         int wheatCount = 0;
@@ -72,11 +79,13 @@ public class Player {
     return oreCount >= 3 && wheatCount >= 2;
 }
 
+    // Removes resources required for road
     public void buildRoad() {
         resources.remove(ResourceType.BRICK);
         resources.remove(ResourceType.LUMBER);
     }
 
+    // Removes resources required for settlement
     public void buildSettlement() {
         resources.remove(ResourceType.BRICK);
         resources.remove(ResourceType.LUMBER);
@@ -84,6 +93,7 @@ public class Player {
         resources.remove(ResourceType.GRAIN);
     }
 
+    // Removes resources required for city
     public void buildCity() {
         resources.remove(ResourceType.GRAIN);
         resources.remove(ResourceType.GRAIN);
@@ -93,16 +103,14 @@ public class Player {
 
     }
 
+    // Adds victory points based on player move
     public void addVictoryPoints(int point) {
         victoryPoints += point;
     }
 
+    // Adds resources that player draws based on roll
     public void addResources(List<ResourceType> newResources) {
         resources.addAll(newResources);
-    }
-
-    public String getUserColor() {
-        return userColor;
     }
 
     public int getVictoryPoints() {

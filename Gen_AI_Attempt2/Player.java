@@ -1,4 +1,3 @@
-package org.catanGen;
 
 // Player.java
 import java.util.*;

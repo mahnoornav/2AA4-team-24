@@ -1,4 +1,3 @@
-package org.catanGen;
 
 // Settlement.java
 public class Settlement {
