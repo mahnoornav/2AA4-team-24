@@ -30,8 +30,8 @@ The program contains the following classes:
 # How to run simulation 
 
 Run the Demonstrator.java file in IntelliJ / Eclipse 
-    - In Demonstrator.java, click run 'Demonstrator.main()'
-
+     - In Demonstrator.java, click run 'Demonstrator.main()'
+     
 This will the run the simulator and print the actions and points earned by each player on the terminal.
 
 
