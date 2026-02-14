@@ -1,3 +1,8 @@
+/**
+ * Represents a road placed by a player on a specific edge of the Catan board. 
+ * Each road is owned by exactly one player.
+ */
+
 public class Road {
     private final Player owner;
     private final int edge;
@@ -14,5 +19,6 @@ public class Road {
     public int getEdge() {
         return edge;
     }
+
 }
 

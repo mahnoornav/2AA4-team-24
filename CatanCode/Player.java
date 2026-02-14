@@ -1,68 +1,34 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a player in the Catan game.
+ */
+
 public class Player {
 
     private String userColor;
     private int victoryPoints;
     private List<ResourceType> resources;
 
-    // Constructor
     public Player(String userColor) {
         this.userColor = userColor;
         this.victoryPoints = 2;
         this.resources = new ArrayList<>();
     }
 
-    // Plays agent's turn based on roll
-    public int turn (int roll) {
-        int move = chooseMove();
-        spend(move);
-        return move;
-    }
-
-    // Chooses agent's move based on resources it has
-    private int chooseMove() {
-        if (canBuildSettlement()) return 1;
-        else if (canBuildCity()) return 2;
-        else if (canBuildRoad()) return 3;
-        else return 0; // Pass
-    }
-
-    // Spends resource cards based on agent's move
-    private void spend(int option) {
-        switch (option) {
-            case 1:
-                buildSettlement();
-                addVictoryPoints(1);
-                //System.out.println(userColor + " builds a settlement");
-                break;
-            case 2:
-                buildCity();
-                addVictoryPoints(1);
-                //System.out.println(userColor + " upgrades a settlement to city");
-                break;
-            case 3:
-                buildRoad();
-                //System.out.println(userColor + " builds a road");
-                break;
-            default:
-                System.out.println(userColor + " passes turn");
-        }
-    }
-
     // Determines if resource available to build road
-    private boolean canBuildRoad() {
+    public boolean canBuildRoad() {
         return resources.contains(ResourceType.BRICK) && resources.contains(ResourceType.LUMBER);
     }
 
     // Determines if resource available to build settlement
-    private boolean canBuildSettlement() {
+    public boolean canBuildSettlement() {
         return resources.contains(ResourceType.BRICK) && resources.contains(ResourceType.LUMBER) && resources.contains(ResourceType.WOOL) && resources.contains(ResourceType.GRAIN);
     }
 
     // Determines if resource available to build city
-    private boolean canBuildCity() {
+    public boolean canBuildCity() {
         int oreCount = 0;
         int wheatCount = 0;
 
@@ -109,8 +75,8 @@ public class Player {
     }
 
     // Adds resources that player draws based on roll
-    public void addResources(List<ResourceType> newResources) {
-        resources.addAll(newResources);
+    public void addResources(ResourceType newResources) {
+        resources.add(newResources);
     }
 
     public int getVictoryPoints() {
@@ -119,5 +85,9 @@ public class Player {
 
     public List<ResourceType> getResources() {
         return resources;
+    }
+
+    public String getUserColor () {
+        return userColor;
     }
 }

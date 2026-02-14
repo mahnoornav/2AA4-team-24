@@ -1,3 +1,8 @@
+/**
+ * Represents a settlement placed by a player on a board vertex.
+ * A settlement belongs to one player and can be upgraded from a settlement to a city.
+ */
+
 public class Settlement {
     private String level;      // defines status of the settlement, can be either SETTLEMENT (default beginning house) or CITY
     private final Player owner;

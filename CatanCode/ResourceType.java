@@ -3,5 +3,6 @@ public enum ResourceType {
     LUMBER,
     WOOL,
     GRAIN,
-    ORE
+    ORE,
+    DESERT
 }

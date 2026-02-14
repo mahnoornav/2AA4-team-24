@@ -1,23 +1,17 @@
-package org.catanGen;
+/**
+ * Represents a hexagonal tile on the Catan board.
+ * Each tile has a resource type, a dice number, and references to its adjacent board vertices.
+ */
 
-// Tile.java
-import java.util.ArrayList;
-import java.util.List;
 
 public class Tile {
     private final ResourceType resource;
     private final int number;
-    private final int[] adjacentVertices; // size 6
+    private int[] adjacentVertices; // size 6
 
-    public Tile(ResourceType resource, int number, int[] adjacentVertices) {
-        // for error checking/ testing to see if the tiles are being generated properly
-        if (adjacentVertices == null || adjacentVertices.length != 6) {
-            throw new IllegalArgumentException("A tile must have exactly 6 adjacent vertices.");
-        }
-
+    public Tile(ResourceType resource, int number) {
         this.resource = resource;
         this.number = number;
-        this.adjacentVertices = adjacentVertices.clone();
     }
 
     public ResourceType getResource() {
@@ -30,6 +24,11 @@ public class Tile {
 
     public int[] getVertices() {
         return adjacentVertices.clone();
+    }
+
+    public void setVertices (int[] adjacentVertices) {
+        this.adjacentVertices = adjacentVertices;
+
     }
 
 }
