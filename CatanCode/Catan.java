@@ -54,7 +54,7 @@ public class Catan {
     }
 
     // main method that simulates the game
-    private void play() {
+    public void play() {
         for (int round = 1; round <= maxRounds; round++) {
             int roll = rollDice();
 
@@ -169,9 +169,4 @@ public class Catan {
         }
     }
 
-    // main method that runs the game
-    public static void main(String[] args) {
-        Catan game = new Catan(20);
-        game.play();
-    }
 }
