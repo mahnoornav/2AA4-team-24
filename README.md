@@ -18,14 +18,14 @@ This program simulates the popular board game Settlers of Catan using OO design 
 
 The program contains the following classes:
 
-1. Board.java
-2. Player.java
-3. Tile.java
-4. Settlement.java
-5. Road.java
-6. ResourceType.java
-7. Catan.java
-8. Demonstrator.java
+1. Board.java - Manages the game board, including tiles, settlements, roads, and placement logic.
+2. Player.java - Represents a game player and manages player resources, actions and points.
+3. Tile.java - Represents a resource tile with its type and number.
+4. Settlement.java - Represents a settlement or city on the board, that is owned by a player.
+5. Road.java - Represents a road on the board, that is owned by a player. 
+6. ResourceType.java - Defines the various types of resources in Catan.
+7. Catan.java - Handles all game logic including turn taking, dice rolls and validating wins.
+8. Demonstrator.java - Contains the main method to run simulation. 
        
 # How to run simulation 
 
