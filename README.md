@@ -33,7 +33,7 @@ The program contains the following classes:
 2. Open and Run Demonstrator.java
      - Click run 'Demonstrator.main()'
      
-This will the run the simulator and print the actions and points earned by each player on the terminal.
+This will the run the simulator and print the actions and points earned by each player on the terminal.    
 
 
 
