@@ -21,8 +21,9 @@ jobs:
 
       - name: Compile Java
         run: |
-          mkdir -p build/classes
-          javac -d build/classes $(find CatanCode -name "*.java")
+          - name: Compile Java
+            mkdir -p build/classes
+            javac -d build/classes $(find . -name "*.java")
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
