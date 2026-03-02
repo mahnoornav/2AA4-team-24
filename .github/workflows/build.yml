@@ -21,7 +21,6 @@ jobs:
 
       - name: Compile Java
         run: |
-          - name: Compile Java
           mkdir -p build/classes
           javac -d build/classes $(find . -name "*.java")
 
