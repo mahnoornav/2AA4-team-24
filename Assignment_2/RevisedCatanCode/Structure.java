@@ -9,6 +9,6 @@ public abstract class Structure {
     }
 
     public Player getPlayer(){
-        return this.player;
+        return this.player; 
     }
 }
