@@ -12,19 +12,19 @@ public class CommandParser {
         // Roll command
         if (input.equalsIgnoreCase("Roll")) {
             int result = dice.roll();
-            System.out.println(player.getUserColor() + " rolled: " + result);
+            System.out.println(player.getPlayerColor() + " rolled: " + result);
             return true;
         }
 
         // Go command
         if (input.equalsIgnoreCase("Go")) {
-            System.out.println(player.getUserColor() + " ends their turn.");
+            System.out.println(player.getPlayerColor() + " ends their turn.");
             return false;
         }
 
         // List player's information
         if (input.equalsIgnoreCase("List")) {
-            System.out.println("Player: " + player.getUserColor());
+            System.out.println("Player: " + player.getPlayerColor());
             System.out.println("Victory Points: " + player.getVictoryPoints());
             System.out.println("Resources: " + player.getResources());
             return true;
@@ -36,7 +36,7 @@ public class CommandParser {
         if (settlement.matches()) {
             int vertex = Integer.parseInt(settlement.group(1));
             board.placeSettlement(player, vertex);
-            System.out.println(player.getUserColor() + " built a settlement at " + vertex);
+            System.out.println(player.getPlayerColor() + " built a settlement at " + vertex);
             return true;
         }
 
@@ -46,7 +46,7 @@ public class CommandParser {
         if (city.matches()) {
             int vertex = Integer.parseInt(city.group(1));
             board.placeCity(player, vertex);
-            System.out.println(player.getUserColor() + " built a city at " + vertex);
+            System.out.println(player.getPlayerColor() + " built a city at " + vertex);
             return true;
         }
 
@@ -56,7 +56,7 @@ public class CommandParser {
         if (road.matches()) {
             int edge = Integer.parseInt(road.group(1));
             board.placeRoad(player, edge);
-            System.out.println(player.getUserColor() + " built a road at " + edge);
+            System.out.println(player.getPlayerColor() + " built a road at " + edge);
             return true;
         }
 

@@ -1,0 +1,121 @@
+/**
+ * 
+ * Simulates a simplified version of the board game Catan.
+ * Manages players, rounds, dice rolls, resource distribution, and turn execution until a winner is determined.
+ * 
+ */
+
+public class Catan {
+
+    private Player[] players;
+    private Board board;
+    private Dice dice;
+    private int maxRounds;
+
+    public Catan(int maxRounds) {
+        this.board = new Board();
+        this.players = new Player[4];
+        this.dice = new Dice();
+
+        players[0] = new Player("Red");
+        players[1] = new Player("Blue");
+        players[2] = new Player("Green");
+        players[3] = new Player("Yellow");
+
+        this.maxRounds = maxRounds;
+
+        // Initialize starting settlements and roads
+        initializePlayers();
+    }
+
+    // main method that simulates the game
+    public void play() {
+        for (int round = 1; round <= maxRounds; round++) {
+            int roll = dice.roll();
+
+            distributeResources(roll, round);
+
+            for (Player player : players) {
+                player.executeTurn(board, round);
+                if (player.getVictoryPoints() >= 10) {
+                    displayWinner();
+                    return;
+                }
+            }
+        }
+        displayWinner();
+    }
+
+    // method that initializes players
+    // each player initially starts with 2 settlements and 2 roads
+    private void initializePlayers() {
+
+        // iterate through every player
+        for (Player player : players) {
+
+            // place settlements only if location is valid
+            for (int i = 0; i < 2; i++) {
+                int vertex = board.firstValidVertex();
+                if (vertex != -1) {
+                    board.placeSettlement(player, vertex);
+                }
+            }
+            
+            // place roads only if location is valid
+            for (int i = 0; i < 2; i++) {
+                int edge = board.firstValidEdge();
+                if (edge != -1) {
+                    board.placeRoad(player, edge);
+                }
+            }
+        }
+    }
+
+    // method that distributes resources 
+    // since tile number = dice roll, resources will be distributed according to the dice roll
+    private void distributeResources(int roll, int roundNumber) {
+
+        // shuffle through board tiles
+        for (Tile tile : board.getTiles()) {
+            if (tile.getNumber() == roll && tile.getResource() != ResourceType.DESERT) {
+
+                // goes through every vertex for tile
+                for (int vertex : tile.getVertices()) {
+                    Structure s = board.getStructure(vertex);
+                    if (s != null) {
+                        Player owner = s.getOwner();
+                        
+                        // cities produce 2 resources
+                        if (s instanceof City) {
+                            owner.addResources(tile.getResource());
+                        }
+
+                        owner.addResources(tile.getResource());
+                        System.out.println("[" + roundNumber + "] / [" + owner.getPlayerColor() + "]: Receives " + tile.getResource());
+                    }
+                }
+            }
+        }
+    }
+
+    // display the winner of the game
+    private void displayWinner() {
+        Player winner = null;
+        int maxPoints = -1;
+        
+        for (Player player : players) {
+            if (player.getVictoryPoints() > maxPoints) {
+                maxPoints = player.getVictoryPoints();
+                winner = player;
+            }
+        }
+        if (winner != null) {
+            System.out.println("\nGame Over! Winner is " + winner.getPlayerColor() + " with " + winner.getVictoryPoints() + " victory points.");
+        } 
+        
+        else {
+            System.out.println("\nGame Over! No winner.");
+        }
+    }
+
+}

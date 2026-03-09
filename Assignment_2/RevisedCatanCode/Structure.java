@@ -3,12 +3,12 @@ public abstract class Structure {
     private int vertex;
 
     public Structure(Player player, int vertex) {
-        this.player = player;
+        this.owner = player;
         this.vertex = vertex;
 
     }
 
-    public Player getPlayer(){
-        return this.player; 
+    public Player getOwner(){
+        return this.owner; 
     }
 }

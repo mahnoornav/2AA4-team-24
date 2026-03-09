@@ -160,7 +160,6 @@ public class Board {
         edges.put(edge, road);
     }
 
-
     // Check if vertex has no settlement
     public boolean vertexOpen(int vertex) {
         return !vertices.containsKey(vertex);
