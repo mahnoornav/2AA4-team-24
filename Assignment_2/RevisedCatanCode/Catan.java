@@ -11,6 +11,7 @@ public class Catan {
     private Board board;
     private Dice dice;
     private int maxRounds;
+    private Robber robber;
 
     public Catan(int maxRounds) {
         this.board = new Board();
@@ -24,16 +25,27 @@ public class Catan {
 
         this.maxRounds = maxRounds;
 
+        // place robber on desert tile at start
+        for (Tile tile : board.getTiles()) {
+            if (tile.getResource() == ResourceType.DESERT) {
+                robber = new Robber(tile);
+                break;
+            }
+        }
+
         // Initialize starting settlements and roads
         initializePlayers();
     }
 
-    // main method that simulates the game
     public void play() {
         for (int round = 1; round <= maxRounds; round++) {
             int roll = dice.roll();
 
-            distributeResources(roll, round);
+            if (roll == 7) {
+                robberTurn(roll);
+            } else {
+                distributeResources(roll, round);
+            }
 
             for (Player player : players) {
                 player.executeTurn(board, round);
@@ -77,14 +89,16 @@ public class Catan {
 
         // shuffle through board tiles
         for (Tile tile : board.getTiles()) {
-            if (tile.getNumber() == roll && tile.getResource() != ResourceType.DESERT) {
+            if (tile.getNumber() == roll &&
+                    tile.getResource() != ResourceType.DESERT &&
+                    !robber.blocksProduction(tile)) {
 
                 // goes through every vertex for tile
                 for (int vertex : tile.getVertices()) {
                     Structure s = board.getStructure(vertex);
                     if (s != null) {
                         Player owner = s.getOwner();
-                        
+
                         // cities produce 2 resources
                         if (s instanceof City) {
                             owner.addResources(tile.getResource());
@@ -117,5 +131,61 @@ public class Catan {
             System.out.println("\nGame Over! No winner.");
         }
     }
+
+    private void robberTurn(int roll) {
+
+        // robber only activates on a roll of 7
+        if (roll != 7) {
+            return;
+        }
+
+        // players with more than 7 resource cards discard half, rounded down
+        for (Player player : players) {
+            int totalResources = player.getResources().size();
+
+            if (totalResources > 7) {
+                int cardsToDiscard = totalResources / 2;
+
+                // simple version: discard from front of hand
+                for (int i = 0; i < cardsToDiscard; i++) {
+                    player.getResources().remove(0);
+                }
+            }
+        }
+
+        // move robber to first different tile
+        Tile currentTile = robber.getCurrentTile();
+        Tile newTile = null;
+
+        for (Tile tile : board.getTiles()) {
+            if (tile != currentTile) {
+                newTile = tile;
+                break;
+            }
+        }
+
+        if (newTile != null) {
+            robber.moveRobber(newTile);
+        }
+
+        // steal from first valid adjacent player with resources
+        if (newTile != null) {
+            for (int vertex : newTile.getVertices()) {
+                Structure s = board.getStructure(vertex);
+
+                if (s != null) {
+                    Player victim = s.getOwner();
+
+                    if (victim != null && !victim.getResources().isEmpty()) {
+                        // simple version: first player steals
+                        robber.stealCard(players[0], victim);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
 
 }
