@@ -153,6 +153,7 @@ public class Catan {
             }
         }
 
+        
         // move robber to first different tile
         Tile currentTile = robber.getCurrentTile();
         Tile newTile = null;
