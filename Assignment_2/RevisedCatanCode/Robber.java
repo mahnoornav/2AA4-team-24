@@ -16,6 +16,7 @@ public class Robber {
         this.random = new Random();
     }
 
+    
     // move robber to a different tile
     public void moveRobber(Tile newTile) {
         if (newTile != null && newTile != currentTile) {
