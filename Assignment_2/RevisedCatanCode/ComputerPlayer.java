@@ -3,74 +3,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class ComputerPlayer extends Player implements Trade{
+public class ComputerPlayer extends Player {
 
     public ComputerPlayer(String color) {
         super(color);
     }
-
-    @Override
-    public void receiveTrade(Player proposer, Map<ResourceType,Integer> requested, Map<ResourceType,Integer> offered) {
-        // accept if it has the requested resources
-        boolean canAccept = true;
-        for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
-            if (Collections.frequency(getResources(), entry.getKey()) < entry.getValue()) {
-                canAccept = false;
-                break;
-            }
-        }
-
-        if (canAccept) {
-            accept();
-            // exchange resources
-            for (Map.Entry<ResourceType,Integer> entry : offered.entrySet()) {
-                removeResources(entry.getKey(), entry.getValue());
-                proposer.addResources(entry.getKey(), entry.getValue());
-            }
-            for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
-                proposer.removeResources(entry.getKey(), entry.getValue());
-                addResources(entry.getKey(), entry.getValue());
-            }
-            System.out.println(getPlayerColor() + " completed the trade!");
-        } else {
-            reject();
-            System.out.println(getPlayerColor() + " rejected the trade!");
-        }
-    }
-
-    @Override
-    public void proposeTrade(Player receivesTrade, Map<ResourceType,Integer> requested, Map<ResourceType,Integer> offered) {
-        System.out.println(getPlayerColor() + " proposes a trade to " + receivesTrade.getPlayerColor());
-        System.out.println("Offering: " + offered);
-        System.out.println("Requesting: " + requested);
-
-        // accept if it has the requested resources
-        boolean canAccept = true;
-        for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
-            if (Collections.frequency(getResources(), entry.getKey()) < entry.getValue()) {
-                canAccept = false;
-                break;
-            }
-        }
-
-        if (canAccept) {
-            receivesTrade.accept();
-            // exchange resources
-            for (Map.Entry<ResourceType,Integer> entry : offered.entrySet()) {
-                removeResources(entry.getKey(), entry.getValue());
-                receivesTrade.addResources(entry.getKey(), entry.getValue());
-            }
-            for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
-                receivesTrade.removeResources(entry.getKey(), entry.getValue());
-                addResources(entry.getKey(), entry.getValue());
-            }
-            System.out.println(getPlayerColor() + " completed the trade!");
-        } 
-        else {
-            receivesTrade.reject();
-            System.out.println(getPlayerColor() + " rejected the trade!");
-        }
-    }
+    
     @Override
     public void executeTurn(Board board, int roundNumber) {
         CommandParser parser = new CommandParser();
@@ -176,6 +114,68 @@ public class ComputerPlayer extends Player implements Trade{
             //try { Thread.sleep(500); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
         }
     }
+
+    public void receiveTrade(Player proposer, Map<ResourceType,Integer> requested, Map<ResourceType,Integer> offered) {
+        // accept if it has the requested resources
+        boolean canAccept = true;
+        for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
+            if (Collections.frequency(getResources(), entry.getKey()) < entry.getValue()) {
+                canAccept = false;
+                break;
+            }
+        }
+
+        if (canAccept) {
+            accept(getPlayerColor());
+            // exchange resources
+            for (Map.Entry<ResourceType,Integer> entry : offered.entrySet()) {
+                removeResources(entry.getKey(), entry.getValue());
+                proposer.addResources(entry.getKey(), entry.getValue());
+            }
+            for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
+                proposer.removeResources(entry.getKey(), entry.getValue());
+                addResources(entry.getKey(), entry.getValue());
+            }
+            System.out.println(getPlayerColor() + " completed the trade!");
+        } else {
+            reject(getPlayerColor());
+            System.out.println(getPlayerColor() + " rejected the trade!");
+        }
+    }
+
+    public void proposeTrade(Player receivesTrade, Map<ResourceType,Integer> requested, Map<ResourceType,Integer> offered) {
+        System.out.println(getPlayerColor() + " proposes a trade to " + receivesTrade.getPlayerColor());
+        System.out.println("Offering: " + offered);
+        System.out.println("Requesting: " + requested);
+
+        // accept if it has the requested resources
+        boolean canAccept = true;
+        for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
+            if (Collections.frequency(getResources(), entry.getKey()) < entry.getValue()) {
+                canAccept = false;
+                break;
+            }
+        }
+
+        if (canAccept) {
+            accept(getPlayerColor());
+            // exchange resources
+            for (Map.Entry<ResourceType,Integer> entry : offered.entrySet()) {
+                removeResources(entry.getKey(), entry.getValue());
+                receivesTrade.addResources(entry.getKey(), entry.getValue());
+            }
+            for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
+                receivesTrade.removeResources(entry.getKey(), entry.getValue());
+                addResources(entry.getKey(), entry.getValue());
+            }
+            System.out.println(getPlayerColor() + " completed the trade!");
+        } 
+        else {
+            reject(getPlayerColor());
+            System.out.println(getPlayerColor() + " rejected the trade!");
+        }
+    }
+
 }
 
     

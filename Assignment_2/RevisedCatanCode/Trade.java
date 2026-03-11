@@ -8,12 +8,14 @@ public interface Trade {
 
     public void receiveTrade(Player proposer, Map<ResourceType,Integer> requested, Map<ResourceType,Integer> offered);
 
-    private void tradeBank(Player requestsTrade, ResourceType offer, ResourceType recieve) {
+    public void tradeBank(ResourceType offer, ResourceType recieve);
+
+    public default void accept(String color) {
+        System.out.println(color + " accepted the trade!");
     }
 
-    private void accept(){
+    public default void reject(String color) {
+        System.out.println(color + " rejected the trade!");
     }
 
-    private void reject() {
-    }
 }
