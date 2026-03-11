@@ -38,6 +38,9 @@ public class Catan {
 
         // Initialize starting settlements and roads
         initializePlayers();
+
+        // Export initial board state for visualizer
+        GameExporter.export(board);
     }
 
     public void play() {
@@ -54,6 +57,10 @@ public class Catan {
 
             for (Player player : players) {
                 player.executeTurn(board, round);
+
+                // Export the board state after each round for visualizer
+                GameExporter.export(board);
+
                 if (player.getVictoryPoints() >= 10) {
                     displayWinner();
                     return;
@@ -193,7 +200,5 @@ public class Catan {
             }
         }
     }
-
-
 
 }

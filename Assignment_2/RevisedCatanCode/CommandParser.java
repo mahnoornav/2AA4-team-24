@@ -38,7 +38,15 @@ public class CommandParser {
         if (settlement.matches()) {
             int vertex = Integer.parseInt(settlement.group(1));
             board.placeSettlement(player, vertex);
-            System.out.println(player.getPlayerColor() + " built a settlement at " + vertex);
+            Structure s = board.getStructure(vertex);
+
+            if (s != null && s.getOwner() == player) {
+                System.out.println(player.getPlayerColor() + " built a settlement at " + vertex);
+            }
+            else {
+                System.out.println("Cannot build a settlement at " + vertex);
+            }
+
             return true;
         }
 
@@ -48,7 +56,15 @@ public class CommandParser {
         if (city.matches()) {
             int vertex = Integer.parseInt(city.group(1));
             board.placeCity(player, vertex);
-            System.out.println(player.getPlayerColor() + " built a city at " + vertex);
+            Structure s = board.getStructure(vertex);
+
+            if (s instanceof City && s.getOwner() == player) {
+                System.out.println(player.getPlayerColor() + " built a city at " + vertex);
+            }
+            else {
+                System.out.println("Cannot build a city at " + vertex);
+            }
+
             return true;
         }
 
@@ -58,10 +74,19 @@ public class CommandParser {
         if (road.matches()) {
             int edge = Integer.parseInt(road.group(1));
             board.placeRoad(player, edge);
-            System.out.println(player.getPlayerColor() + " built a road at " + edge);
+            Road r = board.getRoad(edge);
+
+            if (r != null && r.getOwner() == player) {
+                System.out.println(player.getPlayerColor() + " built a road at " + edge);
+            }
+            else {
+                System.out.println("Cannot build a road at " + edge);
+            }
+
             return true;
         }
 
+        // Trade with another player
         Matcher tradePlayer = Pattern.compile("Trade (\\w+) (\\w+) (\\w+)", Pattern.CASE_INSENSITIVE).matcher(input);
         if (tradePlayer.matches()) {
             String targetColor = tradePlayer.group(1);
@@ -96,7 +121,7 @@ public class CommandParser {
             ResourceType receive = ResourceType.valueOf(receiveResStr);
 
             // check if player has enough resources
-            if (player.getResources().stream().filter(r -> r == offer).count() < 4) {
+            if (player.getResourceCount(offer) < 4) {
                 System.out.println(player.getPlayerColor() + " doesn't have enough resources to trade with the bank.");
                 return true;
             }

@@ -65,7 +65,6 @@ public class HumanPlayer extends Player implements Trade{
     @Override
     public void executeTurn(Board board, int roundNumber) {
         CommandParser parser = new CommandParser();
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("[" + roundNumber + "] / [" + getPlayerColor() + "] turn");
 
@@ -96,6 +95,5 @@ public class HumanPlayer extends Player implements Trade{
         }
 
     }
-
 
 }
