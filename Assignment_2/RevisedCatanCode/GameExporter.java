@@ -1,5 +1,8 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * GameExporter exports the current game state from Board.java into a JSON file called state.json.
@@ -42,12 +45,16 @@ public class GameExporter {
 
             boolean firstBuilding = true;
 
-            for (Integer vertex : board.getVertices().keySet()) {
+            // Sort vertices so buildings export in order
+            List<Integer> vertices = new ArrayList<>(board.getVertices().keySet());
+            Collections.sort(vertices);
+
+            for (Integer vertex : vertices) {
+                Structure structure = board.getStructure(vertex);
+
                 if (!firstBuilding) {
                     writer.write(",\n");
                 }
-
-                Structure structure = board.getStructure(vertex);
 
                 // Determine if structure is a settlement or city
                 String structureType;
@@ -67,6 +74,7 @@ public class GameExporter {
             writer.write("\n  ]\n");
             writer.write("}");
 
+            writer.flush();
             writer.close();
         }
 
