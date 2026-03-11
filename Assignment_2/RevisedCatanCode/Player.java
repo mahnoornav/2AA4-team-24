@@ -5,6 +5,10 @@ import java.util.List;
  * Represents a player in the Catan game.
  */
 
+// changed some visibility here
+// added method removeResources
+// modified method addResources
+
 public abstract class Player {
 
     private String color;
@@ -26,7 +30,7 @@ public abstract class Player {
     }
 
     // Removes resources required for road
-    private void buildRoad() {
+    protected void buildRoad() {
         resources.remove(ResourceType.BRICK);
         resources.remove(ResourceType.LUMBER);
     }
@@ -54,10 +58,20 @@ public abstract class Player {
         victoryPoints += point;
     }
 
-    // Adds resources that player draws based on roll
-    public void addResources(ResourceType newResources) {
-        resources.add(newResources);
+    // Remove a certain quantity of a resource
+    public void removeResources(ResourceType type, int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            resources.remove(type);
+        }
     }
+
+    // Add a certain quantity of a resource
+    public void addResources(ResourceType type, int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            resources.add(type);
+        }
+    }
+    
 
     // Returns victory player points
     public int getVictoryPoints() {

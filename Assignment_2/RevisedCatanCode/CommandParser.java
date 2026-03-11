@@ -86,6 +86,7 @@ public class CommandParser {
             return true;
         }
 
+        // Trade with bank
         if (tradeBank.matches()) {
             String giveRes = tradeBank.group(1);
             String receiveRes = tradeBank.group(2);

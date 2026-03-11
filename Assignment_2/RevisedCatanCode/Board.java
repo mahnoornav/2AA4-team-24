@@ -1,10 +1,15 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * The Board class represents the Catan game board. It stores all tiles, settlements, and roads,
  * and ensures moves follow game rules such as settlement placement distance and road connectivity.
  */
+
+// added getPlayerByColor to help with commandParser
+// added getOtherPlayers to help with trading for computer. this helps with randomly picking one player to trade with
 
 public class Board {
 
@@ -14,20 +19,43 @@ public class Board {
 
     private Map<Integer, Road> edges;    // Map that stores roads at each edge
 
+    private List<Player> players; // store all players
+
     // Maximum number of vertices and edges in a Catan Board
     private final int MAX_Vertices = 54;
     private final int MAX_Edges = 72;
 
     // Constructor to initialize empty board with tiles, vertices, edges
-    public Board() {
+    public Board(List<Player> players) {
         tiles = new Tile[19]; // create array to store 19 tiles
 
         // Initialize settlement and road maps
         vertices = new HashMap<>();
         edges = new HashMap<>();
 
+        this.players = players;
+
         // Initialize tiles setup
         initializeTiles();
+    }
+
+    public List<Player> getOtherPlayers(Player current) {
+        List<Player> others = new ArrayList<>();
+        for (Player p : players) {
+            if (!p.equals(current)) {
+                others.add(p);
+            }
+        }
+        return others;
+    }
+    
+    public Player getPlayerByColor(String color) {
+        for (Player p : players) {
+            if (p.getPlayerColor().equalsIgnoreCase(color)) {
+                return p;
+            }
+        }
+        return null;
     }
 
     // Initializes tiles with resource types, numbers, and vertices
