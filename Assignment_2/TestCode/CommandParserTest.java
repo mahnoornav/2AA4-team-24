@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 /**
  * JUnit tests for the CommandParser class - Tests all terminal commands entered by player
  */
@@ -14,9 +16,10 @@ public class CommandParserTest {
     @BeforeEach
     void setUp() {
         parser = new CommandParser();
-        player = new Player("Red");
-        board = new Board();
-    }
+        player = new ComputerPlayer("Red");
+
+        // Board requires a list of players
+        board = new Board(List.of(player));    }
 
     // Test roll command
     @Test

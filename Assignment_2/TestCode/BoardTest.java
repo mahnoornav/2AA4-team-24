@@ -3,6 +3,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 /**
  * JUnit test for the Board Class - Tests settlement placements, road rules and city upgrades
  */
@@ -14,9 +16,12 @@ public class BoardTest {
 
     @BeforeEach
     void setUp() {
-        board = new Board();
-        player1 = new Player("Red");
-        player2 = new Player("Blue");
+        // create players (Computer Player used to test because Player was made abstract)
+        player1 = new ComputerPlayer("Red");
+        player2 = new ComputerPlayer("Blue");
+
+        // create board with these players
+        board = new Board(Arrays.asList(player1, player2));
     }
 
     // Settlement should be placed on a valid vertex and player should gain 1 VP

@@ -11,7 +11,7 @@ class RoadTest {
     // set up test for green player with a road located at edge 5
     @BeforeEach
     void setUp() {
-        player = new Player("Green");
+        player = new ComputerPlayer("Green");
         road = new Road(player, 5);
     }
 

@@ -14,7 +14,7 @@ public class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        player = new Player("Red");
+        player = new ComputerPlayer("Red");
     }
 
     // Player starts with minimum victory points
@@ -39,7 +39,7 @@ public class PlayerTest {
     // Player HAS resource
     @Test
     void hasResource_true() {
-        player.addResources(ResourceType.BRICK);
+        player.addResources(ResourceType.BRICK, 1);
         assertTrue(player.hasResource(ResourceType.BRICK));
     }
 
@@ -51,8 +51,8 @@ public class PlayerTest {
 
     @Test
     void buildRoad_removesCorrectResources() {
-        player.addResources(ResourceType.BRICK);
-        player.addResources(ResourceType.LUMBER);
+        player.addResources(ResourceType.BRICK, 1);
+        player.addResources(ResourceType.LUMBER, 1);
 
         player.buildRoad();
 
@@ -62,10 +62,10 @@ public class PlayerTest {
 
     @Test
     void buildSettlement_removesCorrectResources() {
-        player.addResources(ResourceType.BRICK);
-        player.addResources(ResourceType.LUMBER);
-        player.addResources(ResourceType.WOOL);
-        player.addResources(ResourceType.GRAIN);
+        player.addResources(ResourceType.BRICK, 1);
+        player.addResources(ResourceType.LUMBER, 1);
+        player.addResources(ResourceType.WOOL, 1);
+        player.addResources(ResourceType.GRAIN, 1);
 
         player.buildSettlement();
 
@@ -77,11 +77,8 @@ public class PlayerTest {
 
     @Test
     void buildCity_removesCorrectResources() {
-        player.addResources(ResourceType.GRAIN);
-        player.addResources(ResourceType.GRAIN);
-        player.addResources(ResourceType.ORE);
-        player.addResources(ResourceType.ORE);
-        player.addResources(ResourceType.ORE);
+        player.addResources(ResourceType.GRAIN, 2);
+        player.addResources(ResourceType.ORE, 3);
 
         player.buildCity();
 
@@ -93,7 +90,7 @@ public class PlayerTest {
     void addResources_increasesResourceCount() {
         int before = player.getResources().size();
 
-        player.addResources(ResourceType.BRICK);
+        player.addResources(ResourceType.BRICK, 1);
 
         int after = player.getResources().size();
 
