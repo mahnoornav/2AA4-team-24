@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,6 +140,7 @@ public class Board {
         player.addVictoryPoints(1);
     }
 
+    /* 
     // Places road at given edge if move is valid
     public void placeRoad(Player player, int edge) {
         // Check if edge is in valid range
@@ -187,6 +189,36 @@ public class Board {
         // Store road in edges map
         edges.put(edge, road);
     }
+    */
+
+    public void placeRoad(Player player, int edge) {
+        // Check if edge is in valid range
+        if (edge < 0 || edge >= MAX_Edges) {
+            return;
+        }
+
+        // Check if edge is empty
+        if (!edgeOpen(edge)) {
+            return;
+        }
+
+        // Simplified connectivity rule:
+        // Road must touch at least one of player's settlements (Settlement or City)
+        Structure s1 = vertices.get(edge);
+        Structure s2 = vertices.get(edge + 1);
+
+        if ((s1 != null && s1.getOwner() == player) || (s2 != null && s2.getOwner() == player)) {
+            // valid placement
+        } else {
+            return; // invalid road placement
+        }
+
+        // Create new road
+        Road road = new Road(player, edge);
+
+        // Store road in edges map
+        edges.put(edge, road);
+    }
 
     // Check if vertex has no settlement
     public boolean vertexOpen(int vertex) {
@@ -223,16 +255,14 @@ public class Board {
 
         return tiles[index];
     }
-
+ 
     // Returns first valid vertex for settlement placement
     public int firstValidVertex() {
-
         for (int i = 0; i < MAX_Vertices; i++) {
             if (vertexOpen(i) && distanceRule(i)) {
                 return i;
             }
         }
-
         return -1;
     }
 
@@ -243,9 +273,10 @@ public class Board {
                 return i;
             }
         }
-
         return -1;
     }
+    
+
 
     // Returns structure at a given vertex
     public Structure getStructure(int vertex) {

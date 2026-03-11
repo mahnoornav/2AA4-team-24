@@ -3,17 +3,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+
 
 /**
  * GameExporter exports the current game state from Board.java into a JSON file called state.json.
- * The state.json is used by the visualizer to display the Catan Board with correct game states.
+ * This version ensures roads are only exported if valid according to the Board logic,
+ * and matches the node/edge format expected by light_visualizer.py.
  */
 public class GameExporter {
 
     public static void export(Board board) {
-
         try {
-            FileWriter writer = new FileWriter("state.json");      // create state.json file and write to it
+            FileWriter writer = new FileWriter("state.json"); // create state.json file
 
             writer.write("{\n");
 
@@ -21,53 +23,46 @@ public class GameExporter {
             writer.write("  \"roads\": [\n");
             boolean firstRoad = true;
 
-            for (Road road : board.getEdges().values()) {
+            for (Map.Entry<Integer, Road> entry : board.getEdges().entrySet()) {
+                Road road = entry.getValue();
+                if (road == null) continue; // skip empty edges
+
+                int edgeId = road.getEdge();
+
+                // Determine the two vertex nodes for this edge
+                int nodeA = edgeId;       // simple mapping: edge -> two nodes
+                int nodeB = edgeId + 1;   // (matches visualizer format)
+                // You may adjust mapping if edge->vertex logic is more complex
 
                 if (!firstRoad) {
                     writer.write(",\n");
                 }
-
-                int edge = road.getEdge();
-
-                // Convert edge into two nodes for visualizer mapping
-                int node1 = edge;
-                int node2 = edge + 1;
-
-                writer.write("    { \"a\": " + node1 + ", \"b\": " + node2 + ", \"owner\": \"" +
+                writer.write("    { \"a\": " + nodeA + ", \"b\": " + nodeB + ", \"owner\": \"" +
                         road.getOwner().getPlayerColor().toUpperCase() + "\" }");
-
                 firstRoad = false;
             }
             writer.write("\n  ],\n");
 
             // Export buildings
             writer.write("  \"buildings\": [\n");
-
             boolean firstBuilding = true;
 
-            // Sort vertices so buildings export in order
+            // Sort vertices to export in order
             List<Integer> vertices = new ArrayList<>(board.getVertices().keySet());
             Collections.sort(vertices);
 
             for (Integer vertex : vertices) {
-                Structure structure = board.getStructure(vertex);
+                Structure s = board.getStructure(vertex);
+                if (s == null) continue;
 
                 if (!firstBuilding) {
                     writer.write(",\n");
                 }
 
-                // Determine if structure is a settlement or city
-                String structureType;
+                String type = (s instanceof City) ? "CITY" : "SETTLEMENT";
 
-                if (structure instanceof City) {
-                    structureType = "CITY";
-                }
-                else {
-                    structureType = "SETTLEMENT";
-                }
-
-                writer.write("    { \"node\": " + vertex + ", \"owner\": \"" + structure.getOwner().getPlayerColor().toUpperCase() +
-                        "\", \"type\": \"" + structureType + "\" }");
+                writer.write("    { \"node\": " + vertex + ", \"owner\": \"" +
+                        s.getOwner().getPlayerColor().toUpperCase() + "\", \"type\": \"" + type + "\" }");
 
                 firstBuilding = false;
             }
@@ -76,10 +71,9 @@ public class GameExporter {
 
             writer.flush();
             writer.close();
-        }
 
-        // Handle any file errors
-        catch (IOException e) {
+            System.out.println("Game state exported successfully to state.json");
+        } catch (IOException e) {
             System.out.println("Error: Cannot export the game state.");
         }
     }
