@@ -1,5 +1,4 @@
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -12,7 +11,7 @@ public class ComputerPlayer extends Player implements Trade{
 
     @Override
     public void receiveTrade(Player proposer, Map<ResourceType,Integer> requested, Map<ResourceType,Integer> offered) {
-        // Simple AI: accept if it has the requested resources
+        // accept if it has the requested resources
         boolean canAccept = true;
         for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
             if (Collections.frequency(getResources(), entry.getKey()) < entry.getValue()) {
@@ -45,7 +44,7 @@ public class ComputerPlayer extends Player implements Trade{
         System.out.println("Offering: " + offered);
         System.out.println("Requesting: " + requested);
 
-        // Simple AI logic: accept if it has the requested resources
+        // accept if it has the requested resources
         boolean canAccept = true;
         for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
             if (Collections.frequency(getResources(), entry.getKey()) < entry.getValue()) {
@@ -84,13 +83,13 @@ public class ComputerPlayer extends Player implements Trade{
         while (continueTurn) {
             String command = "";
 
-            // 1️⃣ Roll first
+            // roll first
             if (!rolled) {
                 command = "Roll";
                 rolled = true;
 
             } 
-            // 2️⃣ Build settlement if possible
+            // build settlement if possible
             else if (ValidateMove.canBuildSettlement(this)) {
                 int vertex = board.firstValidVertex();
                 if (vertex != -1) {
@@ -101,7 +100,7 @@ public class ComputerPlayer extends Player implements Trade{
                 }
 
             } 
-            // 3️⃣ Upgrade settlement to city if possible
+            // upgrade settlement to city if possible
             else if (ValidateMove.canBuildCity(this)) {
                 int vertexToUpgrade = -1;
                 for (Map.Entry<Integer, Structure> entry : board.getVertices().entrySet()) {
@@ -120,14 +119,14 @@ public class ComputerPlayer extends Player implements Trade{
                 }
 
             } 
-            // 4️⃣ Build road if possible
+            // build road if possible
             else if (ValidateMove.canBuildRoad(this)) {
                 int edge = rand.nextInt(10) + 1; // random edge 1-10
                 command = "Build road " + edge;
                 buildRoad();
 
             } 
-            // 5️⃣ Trade with bank if possible
+            // trade with bank if possible
             else {
                 ResourceType bankOffer = null;
                 for (ResourceType r : ResourceType.values()) {
@@ -144,7 +143,7 @@ public class ComputerPlayer extends Player implements Trade{
                     command = "Go"; // end turn after bank trade
 
                 } 
-                // 6️⃣ Trade with other players if any
+                // trade with other players if any
                 else if (!board.getOtherPlayers(this).isEmpty()) {
                     List<Player> others = board.getOtherPlayers(this);
                     Player target = null;
@@ -165,7 +164,7 @@ public class ComputerPlayer extends Player implements Trade{
                     }
 
                 } 
-                // 7️⃣ End turn if nothing else
+                // end turn
                 else {
                     command = "Go";
                 }
@@ -174,7 +173,7 @@ public class ComputerPlayer extends Player implements Trade{
             System.out.println("> " + command);
             continueTurn = parser.parse(command, this, board);
 
-            try { Thread.sleep(500); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+            //try { Thread.sleep(500); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
         }
     }
 }

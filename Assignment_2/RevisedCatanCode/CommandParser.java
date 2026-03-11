@@ -79,7 +79,6 @@ public class CommandParser {
             Map<ResourceType, Integer> requested = Map.of(ResourceType.valueOf(receiveRes), 1);
 
             Trade proposer = (Trade) player;
-            Trade target = (Trade) targetPlayer;
 
             proposer.proposeTrade(targetPlayer, requested, offered);
 
