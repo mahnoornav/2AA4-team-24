@@ -1,7 +1,8 @@
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
 
@@ -12,88 +13,63 @@ class PlayerTest {
         player = new Player("Red");
     }
 
-    // Has required resources
+    // Checks is player starts with correct number of points
     @Test
-    void canBuildRoad_trueWithBrickAndLumber() {
-        player.addResources(ResourceType.BRICK);
-        player.addResources(ResourceType.LUMBER);
-
-        assertTrue(player.canBuildRoad(), "Player can build road.");
+    void testInitialVictoryPoints() {
+        assertEquals(2, player.getVictoryPoints(), "Player should start with 2 victory points");
     }
 
-    // Missing required resource
+    // Confirms that adding victory points updates the total correctly.
     @Test
-    void canBuildRoad_falseWithMissingResource() {
-        player.addResources(ResourceType.BRICK);
-
-        assertFalse(player.canBuildRoad(), "Player can't build road.");
-    }
-
-    // All settlement resources present
-    @Test
-    void canBuildSettlement_trueWithAllResources() {
-        player.addResources(ResourceType.BRICK);
-        player.addResources(ResourceType.LUMBER);
-        player.addResources(ResourceType.WOOL);
-        player.addResources(ResourceType.GRAIN);
-
-        assertTrue(player.canBuildSettlement(), "Player can build settlement.");
-    }
-
-    // Exactly 3 ORE and 2 GRAIN
-    @Test
-    void canBuildCity_trueAtExactBoundary() {
-        player.addResources(ResourceType.ORE);
-        player.addResources(ResourceType.ORE);
-        player.addResources(ResourceType.ORE);
-        player.addResources(ResourceType.GRAIN);
-        player.addResources(ResourceType.GRAIN);
-
-        assertTrue(player.canBuildCity(), "Player can build city.");
-    }
-
-    // Just below requirement
-    @Test
-    void canBuildCity_falseAtBelowBoundary() {
-        player.addResources(ResourceType.ORE);
-        player.addResources(ResourceType.ORE);
-        player.addResources(ResourceType.GRAIN);
-        player.addResources(ResourceType.GRAIN);
-
-        assertFalse(player.canBuildCity(), "Player can't build city.");
-    }
-
-    @Test
-    void canBuildSettlement_falseWithMissingOneResource() {
-        player.addResources(ResourceType.BRICK);
-        player.addResources(ResourceType.LUMBER);
-        player.addResources(ResourceType.WOOL);
-
-        assertFalse(player.canBuildSettlement(), "Player is missing resource.");
-    }
-
-    // Removes correct resources
-    @Test
-    void buildRoad_removesBrickAndLumber() {
-        player.addResources(ResourceType.BRICK);
-        player.addResources(ResourceType.LUMBER);
-
-        player.buildRoad();
-
-        assertFalse(player.getResources().contains(ResourceType.BRICK), "Removed Brick.");
-        assertFalse(player.getResources().contains(ResourceType.LUMBER), "Removed Lumber.");
-    }
-
-    // Updates player instance variables
-    @Test
-    void addVictoryPoints_updatesCorrectly() {
+    void testAddVictoryPoints() {
         player.addVictoryPoints(3);
-        assertEquals(5, player.getVictoryPoints(), "Victory Points updated."); // starts at 2
+        assertEquals(5, player.getVictoryPoints(), "Victory points should be incremented correctly");
     }
 
+    // Ensures that added resources are correctly tracked and can be checked.
     @Test
-    void addResources_addsResourceToList() {
+    void testAddAndCheckResources() {
+        player.addResources(ResourceType.BRICK);
+        assertTrue(player.hasResource(ResourceType.BRICK), "Player should have BRICK after adding it");
+        assertFalse(player.hasResource(ResourceType.LUMBER), "Player should not have LUMBER");
+    }
+
+    // Validates that building a road removes the required resources.
+    @Test
+    void testBuildRoadRemovesResources() {
+        player.addResources(ResourceType.BRICK);
+        player.addResources(ResourceType.LUMBER);
+        player.buildRoad();
+        assertFalse(player.hasResource(ResourceType.BRICK), "BRICK should be removed after building road");
+        assertFalse(player.hasResource(ResourceType.LUMBER), "LUMBER should be removed after building road");
+    }
+
+    // Validates that building a settlement removes the required resources.
+    @Test
+    void testBuildSettlementRemovesResources() {
+        player.addResources(ResourceType.BRICK);
+        player.addResources(ResourceType.LUMBER);
         player.addResources(ResourceType.WOOL);
-        assertTrue(player.getResources().contains(ResourceType.WOOL), "Player gained resource.");
+        player.addResources(ResourceType.GRAIN);
+        player.buildSettlement();
+        List<ResourceType> remaining = player.getResources();
+        assertFalse(remaining.contains(ResourceType.BRICK));
+        assertFalse(remaining.contains(ResourceType.LUMBER));
+        assertFalse(remaining.contains(ResourceType.WOOL));
+        assertFalse(remaining.contains(ResourceType.GRAIN));
+    }
+
+    // Validates that building a city removes the required resources.
+    @Test
+    void testBuildCityRemovesResources() {
+        player.addResources(ResourceType.GRAIN);
+        player.addResources(ResourceType.GRAIN);
+        player.addResources(ResourceType.ORE);
+        player.addResources(ResourceType.ORE);
+        player.addResources(ResourceType.ORE);
+        player.buildCity();
+        List<ResourceType> remaining = player.getResources();
+        assertFalse(remaining.contains(ResourceType.GRAIN));
+        assertFalse(remaining.contains(ResourceType.ORE));
     }
 }

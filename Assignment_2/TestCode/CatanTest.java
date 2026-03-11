@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 
-class CatanTest {
+public class CatanTest {
 
     private Catan game;
     private Board board;
@@ -49,17 +49,14 @@ class CatanTest {
     // test if players receive victory points from starting settlements
     @Test
     void initializePlayers_givesPlayersVictoryPoints() {
-
         for (Player p : players) {
-            assertEquals(4, p.getVictoryPoints(),
-                    "Each player should start with 4 victory points (2 initial + 2 settlements).");
+            assertEquals(4, p.getVictoryPoints(), "Each player should start with 4 victory points (2 initial + 2 settlements).");
         }
     }
 
     // test if play() runs without crashing
     @Test
     void play_runsWithoutErrors() {
-        assertDoesNotThrow(() -> game.play(),
-                "Game play should run without throwing errors.");
+        assertDoesNotThrow(() -> game.play(), "Game play should run without throwing errors.");
     }
 }

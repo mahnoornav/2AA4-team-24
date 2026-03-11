@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +8,6 @@ import org.junit.jupiter.api.Test;
  */
 
 public class BoardTest {
-
     private Board board;
     private Player player1;
     private Player player2;
@@ -22,26 +22,24 @@ public class BoardTest {
     // Settlement should be placed on a valid vertex and player should gain 1 VP
     @Test
     void placeSettlement_validPlacement() {
-        int vertex = board.getVertex();
+        int vertex = board.firstValidVertex();
         int initialVP = player1.getVictoryPoints();
 
         board.placeSettlement(player1, vertex);
-        Settlement settlement = board.getSettlement(vertex);
+        Structure structure = board.getStructure(vertex);
 
-        assertNotNull(settlement);
-        assertEquals(player1, settlement.getOwner());
+        assertNotNull(structure);
+        assertEquals(player1, structure.getOwner());
         assertEquals(initialVP + 1, player1.getVictoryPoints());
-
     }
 
-    // Nothing should happen when placing a settlement on a occupied vertex
+    // Nothing should happen when placing a settlement on an occupied vertex
     @Test
     void placeSettlement_onOccupiedVertex() {
-        int vertex = board.getVertex();
+        int vertex = board.firstValidVertex();
         board.placeSettlement(player1, vertex);
         int vpBefore = player1.getVictoryPoints();
 
-        // Try again at the same vertex
         board.placeSettlement(player1, vertex);
         int vpAfter = player1.getVictoryPoints();
 
@@ -60,7 +58,7 @@ public class BoardTest {
     // Road should not be placed if player has no connection
     @Test
     void placeRoad_withoutConnection() {
-        int edge = board.getEdge();
+        int edge = board.firstValidEdge();
 
         board.placeRoad(player1, edge);
         Road road = board.getRoad(edge);
@@ -71,48 +69,47 @@ public class BoardTest {
     // Road should only be placed when player has a settlement connection
     @Test
     void placeRoad_withConnection() {
-        int vertex = board.getVertex();
+        int vertex = board.firstValidVertex();
         board.placeSettlement(player1, vertex);
 
-        int edge = board.getEdge();
+        int edge = board.firstValidEdge();
         board.placeRoad(player1, edge);
+
         Road road = board.getRoad(edge);
 
         assertNotNull(road);
         assertEquals(player1, road.getOwner());
-
     }
 
     // Upgrading a settlement should turn it into a city and give an additional VP
     @Test
     void upgradeCity_validSettlement() {
-        int vertex = board.getVertex();
+        int vertex = board.firstValidVertex();
 
         board.placeSettlement(player1, vertex);
         int vpAfterSettlement = player1.getVictoryPoints();
 
-        board.upgradeCity(player1, vertex);
+        board.placeCity(player1, vertex);
 
-        Settlement settlement = board.getSettlement(vertex);
+        Structure structure = board.getStructure(vertex);
 
-        assertEquals("CITY", settlement.getLevel());
+        assertTrue(structure instanceof City);
         assertEquals(vpAfterSettlement + 1, player1.getVictoryPoints());
-
     }
 
-    // Player should not be able to upgrade another player's settlements
+    // Player should not be able to upgrade another player's settlement
     @Test
     void upgradeCity_wrongOwner() {
-        int vertex = board.getVertex();
+        int vertex = board.firstValidVertex();
         board.placeSettlement(player2, vertex);
+
         int player1_VPBefore = player1.getVictoryPoints();
 
-        board.upgradeCity(player1, vertex);
-        Settlement settlement = board.getSettlement(vertex);
+        board.placeCity(player1, vertex);
 
-        assertEquals("SETTLEMENT", settlement.getLevel());
+        Structure structure = board.getStructure(vertex);
+
+        assertTrue(structure instanceof Settlement);
         assertEquals(player1_VPBefore, player1.getVictoryPoints());
     }
-
-
 }
