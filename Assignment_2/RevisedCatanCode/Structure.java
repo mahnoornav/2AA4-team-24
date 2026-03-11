@@ -11,4 +11,8 @@ public abstract class Structure {
     public Player getOwner(){
         return this.owner; 
     }
+
+    public int getVertex() {
+        return vertex;
+    }
 }

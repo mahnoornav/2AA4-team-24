@@ -37,9 +37,10 @@ public class Player {
         if (ValidateMove.canBuildCity(this)) {
             for (Integer vertex : board.getVertices().keySet()) {
                 Structure s = board.getStructure(vertex);
-                if (s != null && s.getOwner() == this && s instanceof City) {
+                if (s != null && s.getOwner() == this && s instanceof Settlement) {
 
                     buildCity();
+                    board.placeCity(this, vertex);
                     System.out.println("[" + roundNumber + "] / [" + color + "]: Upgrades settlement at vertex " + vertex + " to city");
                     return;
                 }

@@ -18,12 +18,24 @@ public class ValidateMove {
                player.hasResource(ResourceType.GRAIN);
     }
 
-    // Check if player can build a city
+    // Check if player can build a city (need 3 ORE, 2 GRAIN)
     public static boolean canBuildCity(Player player) {
-        return player.hasResource(ResourceType.ORE) &&
-            player.hasResource(ResourceType.ORE) &&
-            player.hasResource(ResourceType.ORE) &&
-            player.hasResource(ResourceType.GRAIN) &&
-            player.hasResource(ResourceType.GRAIN);
+        int oreCount = 0;
+        int grainCount = 0;
+
+        for (ResourceType resource : player.getResources()) {
+            if (resource == ResourceType.ORE) {
+                oreCount++;
+            }
+            else if (resource == ResourceType.GRAIN) {
+                grainCount++;
+            }
+        }
+
+        if (oreCount >= 3 && grainCount >=2) {
+            return true;
+        }
+
+        return false;
     }   
 }

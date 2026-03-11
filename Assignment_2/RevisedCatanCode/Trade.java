@@ -3,9 +3,9 @@ import java.util.Map;
 public interface Trade {
     
     // store info about the current trade
-    public void proposeTrade(Player recievesTrade, Map<ResourceType, Integer> resourceRequested, Map<ResourceType, Integer> resourceOffered);
+    public void proposeTrade(Player receivesTrade, Map<ResourceType, Integer> resourceRequested, Map<ResourceType, Integer> resourceOffered);
 
-    private void tradeBank(Player requestsTrade, ResourceType offer, ResourceType recieve) {
+    private void tradeBank(Player requestsTrade, ResourceType offer, ResourceType receive) {
     }
 
     private void accept(){
