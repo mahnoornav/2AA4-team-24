@@ -1,10 +1,14 @@
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+/**
+ * Additional tests for Player class.
+ * Includes partition testing and boundary testing.
+ */
 
-class PlayerTest {
+public class PlayerTest {
 
     private Player player;
 
@@ -13,63 +17,87 @@ class PlayerTest {
         player = new Player("Red");
     }
 
-    // Checks is player starts with correct number of points
+    // Player starts with minimum victory points
     @Test
-    void testInitialVictoryPoints() {
-        assertEquals(2, player.getVictoryPoints(), "Player should start with 2 victory points");
+    void initialVictoryPoints() {
+        assertEquals(2, player.getVictoryPoints());
     }
 
-    // Confirms that adding victory points updates the total correctly.
+    // Adding 0 victory points should not change score
     @Test
-    void testAddVictoryPoints() {
-        player.addVictoryPoints(3);
-        assertEquals(5, player.getVictoryPoints(), "Victory points should be incremented correctly");
+    void addZeroVictoryPoints() {
+        player.addVictoryPoints(0);
+        assertEquals(2, player.getVictoryPoints());
     }
 
-    // Ensures that added resources are correctly tracked and can be checked.
+    // Player with no resources
     @Test
-    void testAddAndCheckResources() {
+    void playerHasNoResources() {
+        assertTrue(player.getResources().isEmpty());
+    }
+
+    // Player HAS resource
+    @Test
+    void hasResource_true() {
         player.addResources(ResourceType.BRICK);
-        assertTrue(player.hasResource(ResourceType.BRICK), "Player should have BRICK after adding it");
-        assertFalse(player.hasResource(ResourceType.LUMBER), "Player should not have LUMBER");
+        assertTrue(player.hasResource(ResourceType.BRICK));
     }
 
-    // Validates that building a road removes the required resources.
+    // Player DOES NOT HAVE resource
     @Test
-    void testBuildRoadRemovesResources() {
+    void hasResource_false() {
+        assertFalse(player.hasResource(ResourceType.BRICK));
+    }
+
+    @Test
+    void buildRoad_removesCorrectResources() {
         player.addResources(ResourceType.BRICK);
         player.addResources(ResourceType.LUMBER);
+
         player.buildRoad();
-        assertFalse(player.hasResource(ResourceType.BRICK), "BRICK should be removed after building road");
-        assertFalse(player.hasResource(ResourceType.LUMBER), "LUMBER should be removed after building road");
+
+        assertFalse(player.hasResource(ResourceType.BRICK));
+        assertFalse(player.hasResource(ResourceType.LUMBER));
     }
 
-    // Validates that building a settlement removes the required resources.
     @Test
-    void testBuildSettlementRemovesResources() {
+    void buildSettlement_removesCorrectResources() {
         player.addResources(ResourceType.BRICK);
         player.addResources(ResourceType.LUMBER);
         player.addResources(ResourceType.WOOL);
         player.addResources(ResourceType.GRAIN);
+
         player.buildSettlement();
-        List<ResourceType> remaining = player.getResources();
-        assertFalse(remaining.contains(ResourceType.BRICK));
-        assertFalse(remaining.contains(ResourceType.LUMBER));
-        assertFalse(remaining.contains(ResourceType.WOOL));
-        assertFalse(remaining.contains(ResourceType.GRAIN));
+
+        assertFalse(player.hasResource(ResourceType.BRICK));
+        assertFalse(player.hasResource(ResourceType.LUMBER));
+        assertFalse(player.hasResource(ResourceType.WOOL));
+        assertFalse(player.hasResource(ResourceType.GRAIN));
     }
 
-    // Validates that building a city removes the required resources.
     @Test
-    void testBuildCityRemovesResources() {
+    void buildCity_removesCorrectResources() {
         player.addResources(ResourceType.GRAIN);
         player.addResources(ResourceType.GRAIN);
         player.addResources(ResourceType.ORE);
         player.addResources(ResourceType.ORE);
         player.addResources(ResourceType.ORE);
+
         player.buildCity();
-        List<ResourceType> remaining = player.getResources();
-        assertFalse(remaining.contains(ResourceType.GRAIN));
-        assertFalse(remaining.contains(ResourceType.ORE));
+
+        assertFalse(player.hasResource(ResourceType.GRAIN));
+        assertFalse(player.hasResource(ResourceType.ORE));
     }
+    
+    @Test
+    void addResources_increasesResourceCount() {
+        int before = player.getResources().size();
+
+        player.addResources(ResourceType.BRICK);
+
+        int after = player.getResources().size();
+
+        assertEquals(before + 1, after);
+    }
+
 }
