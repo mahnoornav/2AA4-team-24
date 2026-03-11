@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -7,6 +8,7 @@ import java.util.List;
 
 // changed some visibility here
 // added method removeResources
+// added method getResourcesCount to help with trading
 // modified method addResources
 
 public abstract class Player {
@@ -21,8 +23,6 @@ public abstract class Player {
         this.resources = new ArrayList<>();
     }
 
-    public void executeTurn(Board board, int roundNumber) {
-    }
     
     // Checks if a player has a specific resource in their cards
     public boolean hasResource (ResourceType resource) {
@@ -71,6 +71,33 @@ public abstract class Player {
             resources.add(type);
         }
     }
+
+    public int getResourceCount(ResourceType type) {
+        return Collections.frequency(resources, type);
+    }
+
+
+    // Shared trade mechanics
+    public void accept() {
+        System.out.println(getPlayerColor() + " accepted the trade!");
+    }
+
+    public void reject() {
+        System.out.println(getPlayerColor() + " rejected the trade!");
+    }
+
+    public void tradeBank(ResourceType offer, ResourceType receive) {
+        if (getResourceCount(offer) >= 4) {
+            removeResources(offer, 4);
+            addResources(receive, 1);
+            System.out.println(getPlayerColor() + " traded 4 " + offer + " for 1 " + receive + " from the bank.");
+        } else {
+            System.out.println(getPlayerColor() + " doesn't have enough resources to trade with the bank.");
+        }
+    }
+
+    // abstract method: each player handles their turn differently
+    public abstract void executeTurn(Board board, int roundNumber);
     
 
     // Returns victory player points
