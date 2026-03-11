@@ -2,19 +2,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * This exports the current game state from Board.java into a JSON file required for
- * the visualizer so it can display the Catan Board correctly.
+ * GameExporter exports the current game state from Board.java into a JSON file called state.json.
+ * The state.json is used by the visualizer to display the Catan Board with correct game states.
  */
 public class GameExporter {
 
     public static void export(Board board) {
 
         try {
-            FileWriter writer = new FileWriter("state.json");
+            FileWriter writer = new FileWriter("state.json");      // create state.json file and write to it
 
             writer.write("{\n");
 
-            // Roads
+            // Export roads
             writer.write("  \"roads\": [\n");
             boolean firstRoad = true;
 
@@ -26,7 +26,7 @@ public class GameExporter {
 
                 int edge = road.getEdge();
 
-                // Edge conversion to two separate nodes
+                // Convert edge into two nodes for visualizer mapping
                 int node1 = edge;
                 int node2 = edge + 1;
 
@@ -37,7 +37,7 @@ public class GameExporter {
             }
             writer.write("\n  ],\n");
 
-            // Building
+            // Export buildings
             writer.write("  \"buildings\": [\n");
 
             boolean firstBuilding = true;
@@ -48,6 +48,8 @@ public class GameExporter {
                 }
 
                 Structure structure = board.getStructure(vertex);
+
+                // Determine if structure is a settlement or city
                 String structureType;
 
                 if (structure instanceof City) {
@@ -68,6 +70,7 @@ public class GameExporter {
             writer.close();
         }
 
+        // Handle any file errors
         catch (IOException e) {
             System.out.println("Error: Cannot export the game state.");
         }
