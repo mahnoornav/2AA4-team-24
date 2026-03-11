@@ -84,14 +84,14 @@ public class HumanPlayer extends Player {
     private void displayMenu() {
         // Show available commands
         System.out.println("Available commands:");
-        System.out.println("Roll           - roll the dice");
-        System.out.println("Go             - end your turn");
-        System.out.println("List           - list your resources and points");
-        System.out.println("Build settlement <vertex>  - build a settlement");
-        System.out.println("Build city <vertex>        - upgrade a settlement to city");
-        System.out.println("Build road <edge>          - build a road");
-        System.out.println("Trade <player> <offer> <request> - propose a trade to a player");
-        System.out.println("Bank <offer> <receive>     - trade 4 resources for 1 with the bank");
+        System.out.println("Roll                                 - roll the dice");
+        System.out.println("Go                                   - end your turn");
+        System.out.println("List                                 - list your resources and points");
+        System.out.println("Build settlement <vertex>            - build a settlement");
+        System.out.println("Build city <vertex>                  - upgrade a settlement to city");
+        System.out.println("Build road <edge>                    - build a road");
+        System.out.println("Trade <player> <offer> <request>     - propose a trade to a player");
+        System.out.println("Bank <offer> <receive>               - trade 4 resources for 1 with the bank");
     }
 
 }
