@@ -5,7 +5,7 @@ import java.util.List;
  * Represents a player in the Catan game.
  */
 
-public class Player {
+public abstract class Player {
 
     private String color;
     private int victoryPoints;
