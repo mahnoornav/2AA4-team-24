@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,7 +33,7 @@ public class CommandParser {
         }
 
         // Build settlement (vertex)
-        Matcher settlement = Pattern.compile("Build settlement (\d+)", Pattern.CASE_INSENSITIVE).matcher(input);
+        Matcher settlement = Pattern.compile("Build settlement (\\d+)", Pattern.CASE_INSENSITIVE).matcher(input);
 
         if (settlement.matches()) {
             int vertex = Integer.parseInt(settlement.group(1));
@@ -42,7 +43,7 @@ public class CommandParser {
         }
 
         // Build city (vertex)
-        Matcher city = Pattern.compile("Build city (\d+)", Pattern.CASE_INSENSITIVE).matcher(input);
+        Matcher city = Pattern.compile("Build city (\\d+)", Pattern.CASE_INSENSITIVE).matcher(input);
 
         if (city.matches()) {
             int vertex = Integer.parseInt(city.group(1));
@@ -52,7 +53,7 @@ public class CommandParser {
         }
 
         // Build road (edge)
-        Matcher road = Pattern.compile("Build road (\d+)", Pattern.CASE_INSENSITIVE).matcher(input);
+        Matcher road = Pattern.compile("Build road (\\d+)", Pattern.CASE_INSENSITIVE).matcher(input);
 
         if (road.matches()) {
             int edge = Integer.parseInt(road.group(1));
@@ -61,37 +62,48 @@ public class CommandParser {
             return true;
         }
 
-        // Trade with player
-        Matcher tradePlayer = Pattern.compile("Trade (\w+) (\w+) (\w+)", Pattern.CASE_INSENSITIVE).matcher(input);
-        Matcher tradeBank = Pattern.compile("Bank (\w+) (\w+)", Pattern.CASE_INSENSITIVE).matcher(input);
-
+        Matcher tradePlayer = Pattern.compile("Trade (\\w+) (\\w+) (\\w+)", Pattern.CASE_INSENSITIVE).matcher(input);
         if (tradePlayer.matches()) {
             String targetColor = tradePlayer.group(1);
-            String giveRes = tradePlayer.group(2);
-            String receiveRes = tradePlayer.group(3);
+            String giveRes = tradePlayer.group(2).toUpperCase();
+            String receiveRes = tradePlayer.group(3).toUpperCase();
 
             Player targetPlayer = board.getPlayerByColor(targetColor);
-
-            if (targetPlayer != null && targetPlayer instanceof Trade) {
-                Trade trader = (Trade) targetPlayer;
-
-                Map<ResourceType, Integer> requested = new java.util.HashMap<>();
-                Map<ResourceType, Integer> offered = new java.util.HashMap<>();
-
-                ((Trade) player).proposeTrade(trader, requested, offered);
-            }
-            else {
+            if (targetPlayer == null || !(targetPlayer instanceof Trade)) {
                 System.out.println("Invalid player to trade with: " + targetColor);
+                return true;
             }
-            return true;
+
+            // Build offered/requested maps
+            Map<ResourceType, Integer> offered = Map.of(ResourceType.valueOf(giveRes), 1);
+            Map<ResourceType, Integer> requested = Map.of(ResourceType.valueOf(receiveRes), 1);
+
+            Trade proposer = (Trade) player;
+            Trade target = (Trade) targetPlayer;
+
+            proposer.proposeTrade(targetPlayer, requested, offered);
+
+            // End turn after a trade attempt (accepted or rejected)
+            return false; 
         }
 
         // Trade with bank
+        Matcher tradeBank = Pattern.compile("Bank (\\w+) (\\w+)", Pattern.CASE_INSENSITIVE).matcher(input);
         if (tradeBank.matches()) {
-            String giveRes = tradeBank.group(1);
-            String receiveRes = tradeBank.group(2);
+            String offerResStr = tradeBank.group(1).toUpperCase();
+            String receiveResStr = tradeBank.group(2).toUpperCase();
 
-            ((Trade) player).tradeBank(ResourceType.valueOf(giveRes.toUpperCase()), ResourceType.valueOf(receiveRes.toUpperCase()));
+            ResourceType offer = ResourceType.valueOf(offerResStr);
+            ResourceType receive = ResourceType.valueOf(receiveResStr);
+
+            // check if player has enough resources
+            if (player.getResources().stream().filter(r -> r == offer).count() < 4) {
+                System.out.println(player.getPlayerColor() + " doesn't have enough resources to trade with the bank.");
+                return true;
+            }
+
+            // trade with bank
+            player.tradeBank(offer, receive);
             return true;
         }
 

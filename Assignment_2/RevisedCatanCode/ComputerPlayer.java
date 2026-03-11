@@ -1,17 +1,80 @@
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class ComputerPlayer extends Player{
+public class ComputerPlayer extends Player implements Trade{
 
     public ComputerPlayer(String color) {
         super(color);
     }
 
     @Override
+    public void receiveTrade(Player proposer, Map<ResourceType,Integer> requested, Map<ResourceType,Integer> offered) {
+        // Simple AI: accept if it has the requested resources
+        boolean canAccept = true;
+        for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
+            if (Collections.frequency(getResources(), entry.getKey()) < entry.getValue()) {
+                canAccept = false;
+                break;
+            }
+        }
+
+        if (canAccept) {
+            accept();
+            // exchange resources
+            for (Map.Entry<ResourceType,Integer> entry : offered.entrySet()) {
+                removeResources(entry.getKey(), entry.getValue());
+                proposer.addResources(entry.getKey(), entry.getValue());
+            }
+            for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
+                proposer.removeResources(entry.getKey(), entry.getValue());
+                addResources(entry.getKey(), entry.getValue());
+            }
+            System.out.println(getPlayerColor() + " completed the trade!");
+        } else {
+            reject();
+            System.out.println(getPlayerColor() + " rejected the trade!");
+        }
+    }
+
+    @Override
+    public void proposeTrade(Player receivesTrade, Map<ResourceType,Integer> requested, Map<ResourceType,Integer> offered) {
+        System.out.println(getPlayerColor() + " proposes a trade to " + receivesTrade.getPlayerColor());
+        System.out.println("Offering: " + offered);
+        System.out.println("Requesting: " + requested);
+
+        // Simple AI logic: accept if it has the requested resources
+        boolean canAccept = true;
+        for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
+            if (Collections.frequency(getResources(), entry.getKey()) < entry.getValue()) {
+                canAccept = false;
+                break;
+            }
+        }
+
+        if (canAccept) {
+            receivesTrade.accept();
+            // exchange resources
+            for (Map.Entry<ResourceType,Integer> entry : offered.entrySet()) {
+                removeResources(entry.getKey(), entry.getValue());
+                receivesTrade.addResources(entry.getKey(), entry.getValue());
+            }
+            for (Map.Entry<ResourceType,Integer> entry : requested.entrySet()) {
+                receivesTrade.removeResources(entry.getKey(), entry.getValue());
+                addResources(entry.getKey(), entry.getValue());
+            }
+            System.out.println(getPlayerColor() + " completed the trade!");
+        } 
+        else {
+            receivesTrade.reject();
+            System.out.println(getPlayerColor() + " rejected the trade!");
+        }
+    }
+    @Override
     public void executeTurn(Board board, int roundNumber) {
         CommandParser parser = new CommandParser();
-
         System.out.println("[" + roundNumber + "] / [" + getPlayerColor() + "] turn (Computer)");
 
         boolean rolled = false;
@@ -21,27 +84,24 @@ public class ComputerPlayer extends Player{
         while (continueTurn) {
             String command = "";
 
-            // start by rolling
+            // 1️⃣ Roll first
             if (!rolled) {
                 command = "Roll";
                 rolled = true;
-            
-            } 
 
-            // build settlement if possible
+            } 
+            // 2️⃣ Build settlement if possible
             else if (ValidateMove.canBuildSettlement(this)) {
                 int vertex = board.firstValidVertex();
                 if (vertex != -1) {
                     command = "Build settlement " + vertex;
                     buildSettlement(); // consume resources
+                } else {
+                    command = "Go"; // no valid place
                 }
-                else {
-                    command = "Go";
-                }
-                
 
             } 
-            // upgrade settlement to city if possible
+            // 3️⃣ Upgrade settlement to city if possible
             else if (ValidateMove.canBuildCity(this)) {
                 int vertexToUpgrade = -1;
                 for (Map.Entry<Integer, Structure> entry : board.getVertices().entrySet()) {
@@ -54,34 +114,61 @@ public class ComputerPlayer extends Player{
 
                 if (vertexToUpgrade != -1) {
                     command = "Build City " + vertexToUpgrade;
-                    buildCity(); 
+                    buildCity();
+                } else {
+                    command = "Go";
                 }
+
+            } 
+            // 4️⃣ Build road if possible
+            else if (ValidateMove.canBuildRoad(this)) {
+                int edge = rand.nextInt(10) + 1; // random edge 1-10
+                command = "Build road " + edge;
+                buildRoad();
+
+            } 
+            // 5️⃣ Trade with bank if possible
+            else {
+                ResourceType bankOffer = null;
+                for (ResourceType r : ResourceType.values()) {
+                    if (Collections.frequency(getResources(), r) >= 4) {
+                        bankOffer = r;
+                        break;
+                    }
+                }
+
+                if (bankOffer != null) {
+                    ResourceType request = ResourceType.values()[rand.nextInt(ResourceType.values().length)];
+                    System.out.println(getPlayerColor() + " trades with the bank: 4 " + bankOffer + " for 1 " + request);
+                    tradeBank(bankOffer, request);
+                    command = "Go"; // end turn after bank trade
+
+                } 
+                // 6️⃣ Trade with other players if any
+                else if (!board.getOtherPlayers(this).isEmpty()) {
+                    List<Player> others = board.getOtherPlayers(this);
+                    Player target = null;
+
+                    for (Player p : others) {
+                        if (p instanceof Trade) {
+                            target = p;
+                            break;
+                        }
+                    }
+
+                    if (target != null && !getResources().isEmpty()) {
+                        ResourceType offer = getResources().get(0); // offer first resource
+                        ResourceType request = ResourceType.values()[rand.nextInt(ResourceType.values().length)];
+                        command = "Trade " + target.getPlayerColor() + " " + offer + " " + request;
+                    } else {
+                        command = "Go"; // no trade possible
+                    }
+
+                } 
+                // 7️⃣ End turn if nothing else
                 else {
                     command = "Go";
                 }
-                
-
-            } 
-            // build road if possible
-            else if (ValidateMove.canBuildRoad(this)) {
-                int edge = new Dice().roll() % 10 + 1;
-                command = "Build road " + edge;
-                buildRoad(); // consume resources
-            } 
-            // trade if possible
-            else if (!board.getOtherPlayers(this).isEmpty()) {
-                List<Player> others = board.getOtherPlayers(this);
-                Player target = others.get(rand.nextInt(others.size()));
-
-                ResourceType[] resTypes = ResourceType.values();
-                ResourceType give = resTypes[rand.nextInt(resTypes.length)];
-                ResourceType receive = resTypes[rand.nextInt(resTypes.length)];
-
-                command = "Trade " + target.getPlayerColor() + " " + give + " " + receive;
-            }
-
-            else {
-                command = "Go"; // end turn
             }
 
             System.out.println("> " + command);
@@ -90,6 +177,6 @@ public class ComputerPlayer extends Player{
             try { Thread.sleep(500); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
         }
     }
-    
-    
 }
+
+    

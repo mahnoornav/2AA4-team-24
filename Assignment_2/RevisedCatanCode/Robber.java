@@ -32,7 +32,7 @@ public class Robber {
 
         int index = random.nextInt(victim.getResources().size());
         ResourceType stolen = victim.getResources().remove(index);
-        stealer.addResources(stolen);
+        stealer.addResources(stolen, 1);
         return stolen;
     }
 

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * 
  * Simulates a simplified version of the board game Catan.
@@ -14,14 +16,15 @@ public class Catan {
     private Robber robber;
 
     public Catan(int maxRounds) {
-        this.board = new Board();
         this.players = new Player[4];
         this.dice = new Dice();
 
-        players[0] = new Player("Red");
-        players[1] = new Player("Blue");
-        players[2] = new Player("Green");
-        players[3] = new Player("Yellow");
+        players[0] = new ComputerPlayer("Red");
+        players[1] = new ComputerPlayer("Blue");
+        players[2] = new ComputerPlayer("Green");
+        players[3] = new HumanPlayer("Yellow");
+
+        this.board = new Board(Arrays.asList(players));
 
         this.maxRounds = maxRounds;
 
@@ -39,7 +42,9 @@ public class Catan {
 
     public void play() {
         for (int round = 1; round <= maxRounds; round++) {
+            // roll dice and display result
             int roll = dice.roll();
+            System.out.println("\n--- Round " + round + ", Roll: " + roll + " ---");
 
             if (roll == 7) {
                 robberTurn(roll);
@@ -101,10 +106,12 @@ public class Catan {
 
                         // cities produce 2 resources
                         if (s instanceof City) {
-                            owner.addResources(tile.getResource());
+                            owner.addResources(tile.getResource(), 2);
+                        }
+                        else {
+                            owner.addResources(tile.getResource(), 1);
                         }
 
-                        owner.addResources(tile.getResource());
                         System.out.println("[" + roundNumber + "] / [" + owner.getPlayerColor() + "]: Receives " + tile.getResource());
                     }
                 }
