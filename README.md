@@ -73,7 +73,7 @@ Output
 - Demonstrator.java - Contains main method to run game simulator
 
        
-# How to run simulation 
+## How to run simulation 
 
 1. Clone repository
     - git clone https://github.com/mahnoornav/2AA4-team-24.git
