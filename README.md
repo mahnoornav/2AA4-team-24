@@ -1,6 +1,6 @@
-# Catan Simulator - TEAM-24
-## SFWRENG 2AA4 - Assignment 1
-## Date: Feb 13, 2026
+# Catan Game - TEAM-24
+## SFWRENG 2AA4 - Assignment 1 & 2
+## Date: March 11, 2026
 
 ## SonarQube Badge
 
@@ -11,29 +11,79 @@
 - Mahnoor Naveed
 - Zainab Mirza
 - Swetha Jagannath
-  
+
+## Catan Simulator
+
+This repository contains a java implementation of a simulator for the popular game Settlers of Catan using OO design and SOLID principles. It implements the core components from Catan and simulates player turns, resource distribution, player trading and building structures.
+
 ## Program Overview 
 
-This program simulates the popular board game Settlers of Catan using OO design and SOLID princples. It implements the core components from Catan and simulates four players taking turns until one reaches 10 victory points or the max number of roundd is reached causing the game to end. 
+The simulator implements the main components of Catan including: 
 
-The program contains the following classes:
+- Board and tile layout
+- Players and resources
+- Settlements, cities, roads
+- Dice rolls, player turns
+- Player resource trading
+- Game state exportion to JSON file
 
-1. Board.java - Manages the game board, including tiles, settlements, roads, and placement logic.
-2. Player.java - Represents a game player and manages player resources, actions and points.
-3. Tile.java - Represents a resource tile with its type and number.
-4. Settlement.java - Represents a settlement or city on the board, that is owned by a player.
-5. Road.java - Represents a road on the board, that is owned by a player. 
-6. ResourceType.java - Defines the various types of resources in Catan.
-7. Catan.java - Handles all game logic including turn taking, dice rolls and validating wins.
-8. Demonstrator.java - Contains the main method to run simulation. 
+The game runs in the terminal, simulating four players taking turns until one reaches 10 victory points or the max number of roundd is reached causing the game to end. 
+
+# Repo Structure
+2AA4-team-24
+  - Assignment_1
+     └── Initial Catan simulation implementation (computer players only)
+  - Assignment_2
+     └── Extended version with human input and game state exporting (human + computer players)
+  - README.md
+  - sonar-project.properties
+
+  
+## Components 
+
+Main
+1. Catan.java - Handles main game loop, turn logic, dice rolls
+2. Board.java - Manages board states including placement of settlements, roads, cities
+3. ValidateMove.java - Validates player moves according to game rules
+4. Robber.java - Represents the robber component used if 7 is rolled
+
+Player System
+5. Player.java - Represents a player and their resources and points
+6. HumanPlayer.java - Represents a human player that can interact with game through commands
+7. ComputerPlayer.java - simulater automated player and its actions 
+8. Trade - interface defining trading logic between players
+
+Structures
+9. Structure.java - Base class for building elements in catan
+10. Settlement.java - Represents settlements placed on board owned by players
+11. City.java - Represents cities placed on board owned by players
+12. Road.java - Represents a road on the board, that is owned by a player. 
+
+Game reosurces 
+13. Tile.java - Represents a resource tile with its number
+14. ResourceType.java - Defines all different resources in catan
+15. Dice.java - simulates rolling two six-sided dices 
+
+User interaction 
+16. CommandParser.java - Parses and interprets commands entered by human player
+
+Output 
+17. GameExporter.java - Exports current game state into a JSON file for visualizer
+18. Demonstrator.java - Contains main method to run game simulator
+
        
 # How to run simulation 
 
-1. Open IntelliJ / Eclipse
-2. Open and Run Demonstrator.java
-     - Click run 'Demonstrator.main()'
+1. Clone repository
+    - git clone https://github.com/mahnoornav/2AA4-team-24.git
+    - cd 2AA4-team-24
+
+1. Open project
+    - in IntelliJ  or Eclipse
+  
+4. Run Program
+     - Locate Assignment_2/RevisedCatanCode
+     - Run Demonstrator.java 
      
-This will the run the simulator and print the actions and points earned by each player on the terminal.    
-
-
+This will the run the simulator and display the game terminal. 
 
