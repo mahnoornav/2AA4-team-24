@@ -60,7 +60,7 @@ Structures
 - City.java - Represents cities placed on board owned by players
 - Road.java - Represents a road on the board, that is owned by a player. 
 
-Game reosurces 
+Game resources 
 - Tile.java - Represents a resource tile with its number
 - ResourceType.java - Defines all different resources in catan
 - Dice.java - simulates rolling two six-sided dices 
