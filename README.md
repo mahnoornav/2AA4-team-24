@@ -84,7 +84,8 @@ Output
   
 4. Run Program
      - Locate Assignment_2/RevisedCatanCode
-     - Run Demonstrator.java 
+     - Run Demonstrator.java
+           - Click Run 'Demonstrator.main()'
      
 This will the run the simulator and display the game on the terminal. You can interact with game through command line prompts.
 
