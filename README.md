@@ -42,7 +42,7 @@ The game runs in the terminal, simulating four players taking turns until one re
   
 ## Game Components 
 
-Main
+Core parts
 - Catan.java - Handles main game loop, turn logic, dice rolls
 - Board.java - Manages board states including placement of settlements, roads, cities
 - ValidateMove.java - Validates player moves according to game rules
