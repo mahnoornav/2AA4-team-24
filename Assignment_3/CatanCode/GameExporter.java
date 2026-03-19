@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * GameExporter generates a valid state.json file for the visualizer.
+ * Observer of Board class.
+ */
 
 public class GameExporter implements Observer {
 

@@ -1,5 +1,5 @@
 /**
- * This is the Observer interface that implements the Observer design pattern.
+ * Observer interface that implements the Observer design pattern.
  * Any class that needs to be notified of game state chnages must implement this class.
  */
 

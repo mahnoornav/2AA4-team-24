@@ -11,7 +11,7 @@ import java.util.Map;
 
 // added getPlayerByColor to help with commandParser
 // added getOtherPlayers to help with trading for computer. this helps with randomly picking one player to trade with
-// implement board as subject for observer pattern
+// implemented board as subject for observer pattern
 
 public class Board {
 
