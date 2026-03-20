@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 /**
  * Simulates a simplified version of the board game Catan.
- * Manages players, rounds, dice rolls, resource distribution, and turn execution until a winner is determined.
+ * manages players, rounds, dice rolls, resource distribution, and turn execution until a winner is determined.
  */
 
 public class Catan {

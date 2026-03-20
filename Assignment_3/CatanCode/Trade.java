@@ -17,4 +17,5 @@ public interface Trade {
         System.out.println(color + " rejected the trade!");
     }
 
+
 }

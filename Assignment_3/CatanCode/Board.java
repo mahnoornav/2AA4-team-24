@@ -298,6 +298,7 @@ public class Board {
         }
     }
 
+
     public void removeRoad(Player player, int edge) {
         Road road = edges.get(edge);
         if (road != null && road.getOwner() == player) {
