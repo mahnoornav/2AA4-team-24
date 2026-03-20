@@ -17,11 +17,11 @@ public class Catan {
         this.players = new Player[4];
         this.dice = new Dice();
 
-        players[0] = new ComputerPlayer("Red");
-        players[1] = new ComputerPlayer("Blue");
-        players[2] = new ComputerPlayer("White");
-        players[3] = new HumanPlayer("Orange");
-
+        players[0] = new SmartComputerPlayer("Red");
+        players[1] = new SmartComputerPlayer("Blue");
+        players[2] = new SmartComputerPlayer("White");
+        //players[3] = new HumanPlayer("Orange");
+        players[3] = new SmartComputerPlayer("Orange");
 
 
         this.board = new Board(Arrays.asList(players));

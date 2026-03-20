@@ -7,15 +7,15 @@ public class ValidateMove {
     // Check if player can build a road
     public static boolean canBuildRoad(Player player) {
         return player.hasResource(ResourceType.BRICK) &&
-                player.hasResource(ResourceType.LUMBER);
+               player.hasResource(ResourceType.LUMBER);
     }
 
     // Check if player can build a settlement
     public static boolean canBuildSettlement(Player player) {
         return player.hasResource(ResourceType.BRICK) &&
-                player.hasResource(ResourceType.LUMBER) &&
-                player.hasResource(ResourceType.WOOL) &&
-                player.hasResource(ResourceType.GRAIN);
+               player.hasResource(ResourceType.LUMBER) &&
+               player.hasResource(ResourceType.WOOL) &&
+               player.hasResource(ResourceType.GRAIN);
     }
 
     // Check if player can build a city (need 3 ORE, 2 GRAIN)
@@ -37,5 +37,12 @@ public class ValidateMove {
         }
 
         return false;
+    }   
+
+    // Checks if player can buy development card
+    public static boolean canBuyDevelopmentCard(Player player) {
+        return player.getResourceCount(ResourceType.ORE) >= 1
+            && player.getResourceCount(ResourceType.WOOL) >= 1
+            && player.getResourceCount(ResourceType.GRAIN) >= 1;
     }
 }
