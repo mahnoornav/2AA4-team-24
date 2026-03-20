@@ -22,7 +22,7 @@ jobs:
       - name: Compile Java
         run: |
           mkdir -p build/classes
-          javac -d build/classes $(find Assignment_3/CatanCode -name "*.java")
+          javac -d build/classes $(find Assignment_1/CatanCode -name "*.java")
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
