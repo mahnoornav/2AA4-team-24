@@ -33,7 +33,7 @@ public class ComputerPlayer extends Player {
                 int vertex = board.firstValidVertex();
                 if (vertex != -1) {
                     command = "Build settlement " + vertex;
-                    buildSettlement(); // consume resources
+
                 } else {
                     command = "Go"; // no valid place
                 }
@@ -52,7 +52,7 @@ public class ComputerPlayer extends Player {
 
                 if (vertexToUpgrade != -1) {
                     command = "Build City " + vertexToUpgrade;
-                    buildCity();
+
                 } else {
                     command = "Go";
                 }
@@ -62,7 +62,7 @@ public class ComputerPlayer extends Player {
             else if (ValidateMove.canBuildRoad(this)) {
                 int edge = rand.nextInt(10) + 1; // random edge 1-10
                 command = "Build road " + edge;
-                buildRoad();
+
 
             } 
             // trade with bank if possible

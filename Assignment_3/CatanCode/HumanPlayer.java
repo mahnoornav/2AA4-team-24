@@ -9,7 +9,7 @@ public class HumanPlayer extends Player {
     public HumanPlayer(String color){
         super(color);
     }
-    
+
     @Override
     public void executeTurn(Board board, int roundNumber) {
         CommandParser parser = new CommandParser();
@@ -92,6 +92,8 @@ public class HumanPlayer extends Player {
         System.out.println("Build road <edge>                    - build a road");
         System.out.println("Trade <player> <offer> <request>     - propose a trade to a player");
         System.out.println("Bank <offer> <receive>               - trade 4 resources for 1 with the bank");
+        System.out.println("Undo                                 - undo last action");
+        System.out.println("Redo                                 - redo last undone action");
     }
 
 }

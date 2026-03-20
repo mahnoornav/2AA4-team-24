@@ -22,6 +22,8 @@ public class Catan {
         players[2] = new ComputerPlayer("White");
         players[3] = new HumanPlayer("Orange");
 
+
+
         this.board = new Board(Arrays.asList(players));
 
         // Make GameExprter a Observer of Board

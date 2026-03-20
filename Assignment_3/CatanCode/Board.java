@@ -95,20 +95,20 @@ public class Board {
     }
 
     // Places settlement at given vertex if move is valid
-    public void placeSettlement(Player player, int vertex) {
+    public boolean placeSettlement(Player player, int vertex) {
 
         // Check if vertex is in valid range
         if (vertex < 0 || vertex >= MAX_Vertices) {
-            return;
+            return false;
         }
 
         // Check if vertex is empty
         if (!vertexOpen(vertex)) {
-            return;
+            return false;
         }
         // Check distance rule
         if (!distanceRule(vertex)) {
-            return;
+            return false;
         }
 
         // Create new settlement
@@ -120,40 +120,43 @@ public class Board {
         // Give player victory point for settlement
         player.addVictoryPoints(1);
 
-        notifyObservers();   // Notifies observers
+        notifyObservers(); // Notifies observers
+
+        return true;
     }
 
     // Places a city by upgrading an existing settlement
-    public void placeCity(Player player, int vertex) {
+    public boolean placeCity(Player player, int vertex) {
         Structure structure = vertices.get(vertex);
 
         if (structure == null) {
-            return;
+            return false;
         }
 
         if(!(structure instanceof Settlement)) {
-            return;
+            return false;
         }
 
         if (structure.getOwner() != player) {
-            return;
+            return false;
         }
 
         City city = new City(player,vertex);
         vertices.put(vertex,city);
         player.addVictoryPoints(1);
         notifyObservers();
+        return true;
     }
 
-    public void placeRoad(Player player, int edge) {
+    public boolean placeRoad(Player player, int edge) {
         // Check if edge is in valid range
         if (edge < 0 || edge >= MAX_Edges) {
-            return;
+            return false;
         }
 
         // Check if edge is empty
         if (!edgeOpen(edge)) {
-            return;
+            return false;
         }
 
         boolean connected = false;
@@ -175,7 +178,7 @@ public class Board {
 
         // If not connected to players structure - invalid
         if (!connected) {
-            return;
+            return false;
         }
 
         // Create new road
@@ -185,6 +188,7 @@ public class Board {
         edges.put(edge, road);
 
         notifyObservers();
+        return true;
     }
 
     // Check if vertex has no settlement
@@ -284,5 +288,33 @@ public class Board {
             observer.update(this);
         }
     }
+
+    // Undo/redo command manager methods
+    public void removeSettlement(Player player, int vertex) {
+        Structure s = vertices.get(vertex);
+        if (s instanceof Settlement && s.getOwner() == player) {
+            vertices.remove(vertex);
+            player.addVictoryPoints(-1);
+            notifyObservers();
+        }
+    }
+
+    public void removeRoad(Player player, int edge) {
+        Road road = edges.get(edge);
+        if (road != null && road.getOwner() == player) {
+            edges.remove(edge);
+            notifyObservers();
+        }
+    }
+
+    public void downgradeCity(Player player, int vertex) {
+        Structure s = vertices.get(vertex);
+        if (s instanceof City && s.getOwner() == player) {
+            vertices.put(vertex, new Settlement(player, vertex));
+            player.addVictoryPoints(-1);
+            notifyObservers();
+        }
+    }
+
 
 }
