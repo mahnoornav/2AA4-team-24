@@ -42,6 +42,7 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_F_-0AAkLEfGR4p_igxGnEA" name="buildRoad" visibility="protected"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_xYWosAkKEfGR4p_igxGnEA" name="buildCity" visibility="protected"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_-TaJ4AkKEfGR4p_igxGnEA" name="buildSettlement" visibility="protected"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_zNeBECSyEfGqDq-qC_aLvA" name="buyDevelopmentCard" visibility="protected"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_Lp14oAVfEfGhBobUjBUxaQ" name="addVictoryPoints">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_sxi5UAVfEfGhBobUjBUxaQ" name="point">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -108,6 +109,10 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_KoZhAB2NEfGYwcT2prxWTA" name="players" visibility="private" type="_0p46IAVVEfGhBobUjBUxaQ">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_N1HUoB2NEfGYwcT2prxWTA" name="LiteralInteger1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_N1HUoR2NEfGYwcT2prxWTA" name="LiteralUnlimitedNatural1" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_GTnaQCStEfGqDq-qC_aLvA" name="observers" visibility="private" type="_4ZiFACSsEfGqDq-qC_aLvA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_J1aGACStEfGqDq-qC_aLvA" name="LiteralInteger1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_J1atECStEfGqDq-qC_aLvA" name="LiteralUnlimitedNatural1" value="*"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_t4iAcAVoEfGhBobUjBUxaQ" name="Board">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_OqmDwB2QEfGYwcT2prxWTA" name="players" type="_0p46IAVVEfGhBobUjBUxaQ">
@@ -214,6 +219,31 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XCmF8B2PEfGYwcT2prxWTA" name="LiteralUnlimitedNatural1" value="*"/>
         </ownedParameter>
       </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_n3I0QCStEfGqDq-qC_aLvA" name="addObserver">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_rOKacCStEfGqDq-qC_aLvA" name="observer" type="_4ZiFACSsEfGqDq-qC_aLvA"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_taLmECStEfGqDq-qC_aLvA" name="removeObserver">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_u-0BkCStEfGqDq-qC_aLvA" name="oberserver" type="_4ZiFACSsEfGqDq-qC_aLvA"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_xN2E8CStEfGqDq-qC_aLvA" name="notifyObersever"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_7rK_cCStEfGqDq-qC_aLvA" name="removeSettlement">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_-73UICStEfGqDq-qC_aLvA" name="player" type="_0p46IAVVEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_ASpg4CSuEfGqDq-qC_aLvA" name="vertex">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_ChsyYCSuEfGqDq-qC_aLvA" name="removeRoad">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_FIRzECSuEfGqDq-qC_aLvA" name="player" type="_0p46IAVVEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_GjWC4CSuEfGqDq-qC_aLvA" name="edge">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_JroCcCSuEfGqDq-qC_aLvA" name="downgradeCity">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_MikaYCSuEfGqDq-qC_aLvA" name="player" type="_0p46IAVVEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_OZI6cCSuEfGqDq-qC_aLvA" name="vertex">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_q0FKQAVjEfGhBobUjBUxaQ" name="Settlement">
       <generalization xmi:type="uml:Generalization" xmi:id="_rpXG4B2VEfGYwcT2prxWTA" general="_7S8gIB1vEfGYwcT2prxWTA"/>
@@ -312,6 +342,9 @@
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_dTuQIB1rEfGYwcT2prxWTA" name="result" direction="return" effect="create">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_FseTACSzEfGqDq-qC_aLvA" name="canBuyDevelopmentCard" isStatic="true">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_KBhAoCSzEfGqDq-qC_aLvA" name="player" type="_0p46IAVVEfGhBobUjBUxaQ"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Interface" xmi:id="_wOZKYB1rEfGYwcT2prxWTA" name="Trade">
@@ -457,7 +490,10 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_GX-xgB2JEfGYwcT2prxWTA" name="menu" visibility="private"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_T0A40B2JEfGYwcT2prxWTA" name="GameExporter">
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_VvEQQB2JEfGYwcT2prxWTA" name="export" isStatic="true">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Mz9vkCSyEfGqDq-qC_aLvA" name="update">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_OJAP4CSyEfGqDq-qC_aLvA" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_VvEQQB2JEfGYwcT2prxWTA" name="export" visibility="private" isStatic="true">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_X05UUB2JEfGYwcT2prxWTA" name="board">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
@@ -485,6 +521,11 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_8F-EQB2KEfGYwcT2prxWTA" name="ComputerPlayer">
       <generalization xmi:type="uml:Generalization" xmi:id="_Nn5sIB2aEfGYwcT2prxWTA" general="_0p46IAVVEfGhBobUjBUxaQ"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_32epACSxEfGqDq-qC_aLvA" name="ComputerPlayer">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_7qdQ8CSxEfGqDq-qC_aLvA" name="color">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_-TwxgB2KEfGYwcT2prxWTA" name="executeTurn">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_ARBIYB2LEfGYwcT2prxWTA" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_CeyngB2LEfGYwcT2prxWTA" name="roundNumber">
@@ -516,6 +557,7 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_9DgOEB2LEfGYwcT2prxWTA" name="CommandParser">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_GfaH0B2MEfGYwcT2prxWTA" name="dice" visibility="private" type="_C7XrQB2KEfGYwcT2prxWTA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_tJN1ECSxEfGqDq-qC_aLvA" name="commandManager" visibility="private" isStatic="true" type="_9DgOEB2LEfGYwcT2prxWTA"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_JLXXwB2MEfGYwcT2prxWTA" name="parse">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_Lp_WUB2MEfGYwcT2prxWTA" name="result" direction="return">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
@@ -686,6 +728,194 @@
       <name xsi:nil="true"/>
       <ownedEnd xmi:type="uml:Property" xmi:id="_GPcTAB2pEfG0Cdh3bXbOQg" name="player" type="_0p46IAVVEfGhBobUjBUxaQ" aggregation="shared" association="_GPYooB2pEfG0Cdh3bXbOQg"/>
       <ownedEnd xmi:type="uml:Property" xmi:id="_GPc6EB2pEfG0Cdh3bXbOQg" name="catan" type="_Ai1RgAVrEfGhBobUjBUxaQ" association="_GPYooB2pEfG0Cdh3bXbOQg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nWf7cCSkEfGfsPBzQQEUMg" name="SmartComputerPlayer">
+      <generalization xmi:type="uml:Generalization" xmi:id="_IO0xcCSnEfGfsPBzQQEUMg" general="_8F-EQB2KEfGYwcT2prxWTA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_g_eSgCSlEfGfsPBzQQEUMg" name="color" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_pq-NkCSmEfGfsPBzQQEUMg" name="SmartComputerPlayer">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_riizMCSmEfGfsPBzQQEUMg" name="color">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_3sQB4CSkEfGfsPBzQQEUMg" name="executeTurn">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_lFJucCSlEfGfsPBzQQEUMg" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_nLtyUCSlEfGfsPBzQQEUMg" name="roundNum">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_qBXJwCSlEfGfsPBzQQEUMg" name="chooseAction" visibility="private">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_rfVjoCSlEfGfsPBzQQEUMg" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_z5XwsCSlEfGfsPBzQQEUMg" name="move" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_vkBhECSlEfGfsPBzQQEUMg" name="handelContraints" visibility="private">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_xJQZgCSlEfGfsPBzQQEUMg" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_3A_o8CSlEfGfsPBzQQEUMg" name="contraint" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_7LONsCSlEfGfsPBzQQEUMg" name="evaluateActions" visibility="private">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_8jxVACSlEfGfsPBzQQEUMg" name="action" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_AMJJ4CSmEfGfsPBzQQEUMg" name="chooseSpendingAction" visibility="private">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_CtUGICSmEfGfsPBzQQEUMg" name="action" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_JNRzMCSmEfGfsPBzQQEUMg" name="getAllRoads" visibility="private">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_KkihECSmEfGfsPBzQQEUMg" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_MNmwoCSmEfGfsPBzQQEUMg" name="roads" type="_Ju5n0B16EfGYwcT2prxWTA" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ppj6ICSmEfGfsPBzQQEUMg" name="LiteralInteger1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_PplvUCSmEfGfsPBzQQEUMg" name="LiteralUnlimitedNatural1" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_RNGJcCSmEfGfsPBzQQEUMg" name="getLongestRoadsLength" visibility="private">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_UyHIUCSmEfGfsPBzQQEUMg" name="len" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_XT7k0CSmEfGfsPBzQQEUMg" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_bDTZkCSmEfGfsPBzQQEUMg" name="shouldConnectRoad" visibility="private">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_ckkYACSmEfGfsPBzQQEUMg" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_eI3cUCSmEfGfsPBzQQEUMg" name="Parameter1" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_gDv0oCSmEfGfsPBzQQEUMg" name="protectLongestRoads" visibility="private">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_iFSOkCSmEfGfsPBzQQEUMg" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_lhaXMCSmEfGfsPBzQQEUMg" name="result">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_4ZiFACSsEfGqDq-qC_aLvA" name="Observer">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_9O-J8CSsEfGqDq-qC_aLvA" name="update">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_-Ste4CSsEfGqDq-qC_aLvA" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YE_7wCSuEfGqDq-qC_aLvA" name="BuildCityCommand">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_drJE4CSuEfGqDq-qC_aLvA" name="board" visibility="private" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_fsFB4CSuEfGqDq-qC_aLvA" name="player" visibility="private" type="_0p46IAVVEfGhBobUjBUxaQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_im0UsCSuEfGqDq-qC_aLvA" name="vertex" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+      <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_1VH0oCSzEfGqDq-qC_aLvA" client="_YE_7wCSuEfGqDq-qC_aLvA" supplier="_Kb598CSwEfGqDq-qC_aLvA" contract="_Kb598CSwEfGqDq-qC_aLvA">
+        <name xsi:nil="true"/>
+      </interfaceRealization>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_kmmbICSuEfGqDq-qC_aLvA" name="BuildCityCommand">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_pI0CECSuEfGqDq-qC_aLvA" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_qXWRwCSuEfGqDq-qC_aLvA" name="player" type="_0p46IAVVEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_sZWlwCSuEfGqDq-qC_aLvA" name="vertex">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_vWXJcCSuEfGqDq-qC_aLvA" name="execute">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_x0BesCSuEfGqDq-qC_aLvA" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_0Tw3kCSuEfGqDq-qC_aLvA" name="undo"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_6kl8cCSuEfGqDq-qC_aLvA" name="BuildRoadCommand">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_-4R_MCSuEfGqDq-qC_aLvA" name="board" visibility="private" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_CIAqkCSvEfGqDq-qC_aLvA" name="player" visibility="private" type="_0p46IAVVEfGhBobUjBUxaQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_FOYloCSvEfGqDq-qC_aLvA" name="vertex" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+      <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_5hr7sCSzEfGqDq-qC_aLvA" client="_6kl8cCSuEfGqDq-qC_aLvA" supplier="_Kb598CSwEfGqDq-qC_aLvA" contract="_Kb598CSwEfGqDq-qC_aLvA">
+        <name xsi:nil="true"/>
+      </interfaceRealization>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_IBniQCSvEfGqDq-qC_aLvA" name="BuildRoadCommand">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_KlLrMCSvEfGqDq-qC_aLvA" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_ME38UCSvEfGqDq-qC_aLvA" name="player" type="_0p46IAVVEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_N-TjICSvEfGqDq-qC_aLvA" name="vertex">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_PswpACSvEfGqDq-qC_aLvA" name="execute">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_RIK3ECSvEfGqDq-qC_aLvA" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_YAc9gCSvEfGqDq-qC_aLvA" name="undo"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cGIZcCSvEfGqDq-qC_aLvA" name="BuildSettlementCommand">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_ismXICSvEfGqDq-qC_aLvA" name="board" visibility="private" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_gKyhsCSvEfGqDq-qC_aLvA" name="player" visibility="private" type="_0p46IAVVEfGhBobUjBUxaQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_mbBwsCSvEfGqDq-qC_aLvA" name="vertex" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+      <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_3JGTsCSzEfGqDq-qC_aLvA" client="_cGIZcCSvEfGqDq-qC_aLvA" supplier="_Kb598CSwEfGqDq-qC_aLvA" contract="_Kb598CSwEfGqDq-qC_aLvA">
+        <name xsi:nil="true"/>
+      </interfaceRealization>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_oX6UICSvEfGqDq-qC_aLvA" name="BuildSettlementCommand">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_uJl-4CSvEfGqDq-qC_aLvA" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_vwxYECSvEfGqDq-qC_aLvA" name="player" type="_0p46IAVVEfGhBobUjBUxaQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_xGHaYCSvEfGqDq-qC_aLvA" name="vertex">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_zBoE0CSvEfGqDq-qC_aLvA" name="execute">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_0DvpICSvEfGqDq-qC_aLvA" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_18FDwCSvEfGqDq-qC_aLvA" name="undo"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Kb598CSwEfGqDq-qC_aLvA" name="Command">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_MC04cCSwEfGqDq-qC_aLvA" name="execute">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_NqwfkCSwEfGqDq-qC_aLvA" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_SF_70CSwEfGqDq-qC_aLvA" name="undo"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_beJW8CSwEfGqDq-qC_aLvA" name="CommandManager">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_4G2cwCSwEfGqDq-qC_aLvA" name="undoStack" visibility="private" type="_hxEGgCSwEfGqDq-qC_aLvA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_6wIzMCSwEfGqDq-qC_aLvA" name="redo" visibility="private" type="_hxEGgCSwEfGqDq-qC_aLvA"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_9RHiMCSwEfGqDq-qC_aLvA" name="executeCommand">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_OIAm0CSxEfGqDq-qC_aLvA" name="command" type="_Kb598CSwEfGqDq-qC_aLvA"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_ZS-qcCSxEfGqDq-qC_aLvA" name="undo"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_baESwCSxEfGqDq-qC_aLvA" name="redo"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_hxEGgCSwEfGqDq-qC_aLvA" name="Stack">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_vguUcCSwEfGqDq-qC_aLvA" name="stack" type="_Kb598CSwEfGqDq-qC_aLvA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yRRJcCSwEfGqDq-qC_aLvA" name="LiteralInteger1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yRRJcSSwEfGqDq-qC_aLvA" name="LiteralUnlimitedNatural1" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_LSPr4CS3EfGqDq-qC_aLvA" memberEnd="_LSVLcCS3EfGqDq-qC_aLvA _LSWZkCS3EfGqDq-qC_aLvA" navigableOwnedEnd="_LSVLcCS3EfGqDq-qC_aLvA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LSSvMCS3EfGqDq-qC_aLvA" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LSTWQCS3EfGqDq-qC_aLvA" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <name xsi:nil="true"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_LSVLcCS3EfGqDq-qC_aLvA" name="commandmanager" type="_beJW8CSwEfGqDq-qC_aLvA" aggregation="composite" association="_LSPr4CS3EfGqDq-qC_aLvA"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_LSWZkCS3EfGqDq-qC_aLvA" name="commandparser" type="_9DgOEB2LEfGYwcT2prxWTA" association="_LSPr4CS3EfGqDq-qC_aLvA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_pys9gCS3EfGqDq-qC_aLvA" client="_Kb598CSwEfGqDq-qC_aLvA" supplier="_hxEGgCSwEfGqDq-qC_aLvA">
+      <name xsi:nil="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_sApbwCS3EfGqDq-qC_aLvA" memberEnd="_sAqp4iS3EfGqDq-qC_aLvA _sArQ8CS3EfGqDq-qC_aLvA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_sAqp4CS3EfGqDq-qC_aLvA" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_sAqp4SS3EfGqDq-qC_aLvA" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <name xsi:nil="true"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_sAqp4iS3EfGqDq-qC_aLvA" name="stack" type="_hxEGgCSwEfGqDq-qC_aLvA" aggregation="composite" association="_sApbwCS3EfGqDq-qC_aLvA"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_sArQ8CS3EfGqDq-qC_aLvA" name="commandmanager" type="_beJW8CSwEfGqDq-qC_aLvA" association="_sApbwCS3EfGqDq-qC_aLvA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_-x-z0CS3EfGqDq-qC_aLvA" memberEnd="_-x_a4SS3EfGqDq-qC_aLvA _-x_a4iS3EfGqDq-qC_aLvA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-x-z0SS3EfGqDq-qC_aLvA" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-x_a4CS3EfGqDq-qC_aLvA" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <name xsi:nil="true"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_-x_a4SS3EfGqDq-qC_aLvA" name="observer" type="_4ZiFACSsEfGqDq-qC_aLvA" aggregation="shared" association="_-x-z0CS3EfGqDq-qC_aLvA"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_-x_a4iS3EfGqDq-qC_aLvA" name="board" type="_yqRKwAVgEfGhBobUjBUxaQ" association="_-x-z0CS3EfGqDq-qC_aLvA"/>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_LIOJkAVwEfGhBobUjBUxaQ">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LIWFYAVwEfGhBobUjBUxaQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
