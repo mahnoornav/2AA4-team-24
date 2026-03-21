@@ -11,7 +11,7 @@ public class BuildRoadCommand implements Command {
 
     @Override
     public boolean execute() {
-        if (!player.canAffordRoad()) return false;
+        if (!ValidateMove.canBuildSettlement(player)) return false;
 
         boolean placed = board.placeRoad(player, edge);
         if (placed) {

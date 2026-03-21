@@ -110,22 +110,7 @@ public abstract class Player implements Trade {
         return resources;
     }
 
-    public boolean canAffordRoad() {
-        return getResourceCount(ResourceType.BRICK) >= 1 &&
-                getResourceCount(ResourceType.LUMBER) >= 1;
-    }
 
-    public boolean canAffordSettlement() {
-        return getResourceCount(ResourceType.BRICK) >= 1 &&
-                getResourceCount(ResourceType.LUMBER) >= 1 &&
-                getResourceCount(ResourceType.WOOL) >= 1 &&
-                getResourceCount(ResourceType.GRAIN) >= 1;
-    }
-
-    public boolean canAffordCity() {
-        return getResourceCount(ResourceType.GRAIN) >= 2 &&
-                getResourceCount(ResourceType.ORE) >= 3;
-    }
 
 
 }

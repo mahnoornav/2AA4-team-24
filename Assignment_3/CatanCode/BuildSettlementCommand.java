@@ -11,7 +11,7 @@ public class BuildSettlementCommand implements Command {
 
     @Override
     public boolean execute() {
-        if (!player.canAffordSettlement()) return false;
+        if (!ValidateMove.canBuildSettlement(player)) return false;
 
         boolean placed = board.placeSettlement(player, vertex);
         if (placed) {

@@ -11,7 +11,7 @@ public class BuildCityCommand implements Command {
 
     @Override
     public boolean execute() {
-        if (!player.canAffordCity()) return false;
+        if (!ValidateMove.canBuildCity(player)) return false;
 
         boolean placed = board.placeCity(player, vertex);
         if (placed) {
