@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Random;
 
 public class ComputerPlayer extends Player {
+    
+    protected Random rand = new Random();
+
 
     public ComputerPlayer(String color) {
         super(color);
@@ -17,7 +20,6 @@ public class ComputerPlayer extends Player {
 
         boolean rolled = false;
         boolean continueTurn = true;
-        Random rand = new Random();
 
         while (continueTurn) {
             String command = "";
