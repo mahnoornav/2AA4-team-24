@@ -27,7 +27,7 @@ The simulator implements the main components of Catan including:
 - Player resource trading
 - Game state exportion to JSON file
 
-The game runs in the terminal, simulating four players taking turns until one reaches 10 victory points or the max number of roundd is reached causing the game to end. 
+The game runs in the terminal, simulating four players (3 smart computer players and 1 human player) taking turns until one reaches 10 victory points or the max number of round is reached causing the game to end. 
 
 ## Repo Structure
 
@@ -36,6 +36,10 @@ The game runs in the terminal, simulating four players taking turns until one re
       - Initial Catan simulation implementation (computer players only)
   - Assignment_2
       - Extended version with human input and game state exporting (human + computer players)
+  - Assignment_3
+      - Extended with intelligent move making made by computer player, implemented different design patterns
+  - Catan
+      - Papyrus project for design model
   - README.md
   - sonar-project.properties
 
@@ -51,7 +55,8 @@ Core parts
 Player System
 - Player.java - Represents a player and their resources and points
 - HumanPlayer.java - Represents a human player that can interact with game through commands
-- ComputerPlayer.java - simulater automated player and its actions 
+- ComputerPlayer.java - simulater automated player and its actions
+- SmartComputerPlayer.java - simulates automated player with actions made based on current game state 
 - Trade - interface defining trading logic between players
 
 Structures
